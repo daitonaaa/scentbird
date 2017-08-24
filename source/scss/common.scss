@@ -1,0 +1,56 @@
+@import 'normalize';
+@import 'vars';
+@import 'fonts';
+@import 'mixins';
+
+html {
+  position: relative;
+  height: 100%;
+  font-family: $mainFontRegular, sans-serif;
+  font-size: 100%;
+}
+
+body {
+  position: relative;
+  height: 100%;
+  background-color: #f1f1f1;
+  font-size: 14px;
+  color: $text;
+}
+
+a, button, input, textarea, img, select {
+  &:focus {
+    outline: none;
+  }
+}
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3 {
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+  outline: none;
+}
+
+#app {
+  position: relative;
+}

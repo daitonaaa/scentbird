@@ -1,0 +1,107 @@
+{
+  "extends": ["eslint:recommended", "plugin:jest/recommended", "plugin:react/recommended"],
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true,
+    "jest": true
+  },
+  "globals": {
+    "BROWSER": true,
+    "API_DOMAIN": true,
+    "window": true,
+    "document": true
+  },
+  "parser": "babel-eslint",
+  "installedESLint": true,
+  "parserOptions": {
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true,
+      "blockBindings": true
+    },
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react",
+    "compat",
+    "jest"
+  ],
+  "settings": {
+    "react": {
+      "pragma": "React",
+      "version": "15.0"
+    }
+  },
+  "rules": {
+    "no-irregular-whitespace": [2],
+    "max-len": [2, 120],
+    "linebreak-style": 0,
+    "indent": [2, 2, {"SwitchCase": 1}],
+    "quotes": [2, "single"],
+    "semi": [2, "always"],
+    "eol-last": [0],
+    "prefer-template": [0],
+    "arrow-parens": [0],
+    "arrow-body-style": [0],
+    "quote-props": [0],
+    "no-restricted-imports": [0],
+    "no-case-declarations": 0,
+    "no-unused-props": [0],
+    "no-unused-vars": [2, {"vars": "all", "args": "none"}],
+    "no-console": [0],
+    "no-shadow": [0],
+    "compat/compat": 2,
+    "import/no-named-as-default-member": [0],
+    "import/prefer-default-export": [0],
+    "import/no-named-as-default": [0],
+    "jsx-a11y/href-no-hash": [0],
+    "jsx-a11y/anchor-has-content": [0],
+    "jsx-a11y/no-static-element-interactions": [0],
+    "react/jsx-closing-bracket-location": [2],
+    "react/jsx-closing-tag-location": [0],
+    "react/jsx-boolean-value": [0],
+    "react/jsx-curly-spacing": [2, "never"],
+    "react/jsx-equals-spacing": [2, "never"],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/jsx-first-prop-new-line": [1],
+    "react/jsx-indent": [2, 2],
+    "react/jsx-indent-props": [2, 2],
+    "react/jsx-key": [2],
+    "react/jsx-no-duplicate-props": [2],
+    "react/jsx-no-undef": [2],
+    "react/jsx-pascal-case": [2],
+    "react/jsx-space-before-closing": [2],
+    "react/jsx-uses-react": [2],
+    "react/jsx-uses-vars": [2],
+    "react/no-unknown-property": [2],
+    "react/self-closing-comp": [2],
+    "react/no-unused-prop-types": [2],
+    "react/no-unescaped-entities": [2],
+    "react/forbid-prop-types": [0],
+    "react/no-deprecated": [2],
+    "react/prop-types": [2],
+    "react/sort-comp": [2, {
+      "order": [
+        "static-methods",
+        "lifecycle",
+        "everything-else",
+        "render"
+      ],
+      "groups": {
+        "lifecycle": [
+          "propTypes",
+          "defaultProps",
+          "state",
+          "constructor",
+          "componentWillMount",
+          "componentDidMount",
+          "componentWillReceiveProps",
+          "shouldComponentUpdate",
+          "componentWillUpdate",
+          "componentDidUpdate",
+          "componentWillUnmount"
+        ]
+      }
+    }]
+  }
+}

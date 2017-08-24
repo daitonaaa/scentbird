@@ -1,2 +1,1 @@
-# code-example
-Код для чтения
+"# webpack-3-config" 

@@ -1,0 +1,13 @@
+@import '~vars.scss';
+
+@font-face {
+  src: url('../assets/fonts/opensans/regular/opensans-regular-webfont.woff') format('woff');
+  font-family: $mainFontRegular;
+  font-style: normal;
+}
+
+@font-face {
+  src: url('../assets/fonts/opensans/bold/opensans-bold-webfont.woff') format('woff');
+  font-family: $mainFontBold;
+  font-style: normal;
+}
