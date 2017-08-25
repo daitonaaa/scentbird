@@ -25,13 +25,14 @@
   &__count {
     margin-bottom: 10px;
     font-size: 21px;
-    color: #3982d0;
+    color: #d87171;
     text-align: center;
   }
 
   &__controls {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 10px;
 
     & div {
       box-sizing: border-box;
@@ -41,15 +42,26 @@
       background: #f1f1f1;
       font-size: 13px;
       text-align: center;
-      border: solid 1px #cecece;
+      border: solid 1px #dcdcdc;
       cursor: pointer;
       transition: .2s;
 
       &:hover {
-        background: #3982d0;
+        background: #a18aaf;
         color: #fff;
-        border: solid 1px #3982d0;
+        border: solid 1px #a18aaf;
       }
+    }
+  }
+
+  &__list {
+    &-no-items {
+      padding: 20px;
+      background: #f1f1f1;
+      font-size: 18px;
+      color: #737373;
+      text-align: center;
+      border-top: solid 1px #d2d2d2;
     }
   }
 }

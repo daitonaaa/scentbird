@@ -7,7 +7,7 @@ import './Item.scss';
 
 import Child from 'components/Child/Child';
 
-import { deleteItem } from 'actions/items';
+import { deleteItemAndSetCount } from 'actions/items';
 
 
 class Item extends Component {
@@ -15,40 +15,42 @@ class Item extends Component {
   static propTypes = {
     id: PropTypes.number.isRequired,
     open: PropTypes.bool.isRequired,
-    check: PropTypes.bool.isRequired,
     title: PropTypes.string.isRequired,
     childs: PropTypes.array.isRequired,
 
     handleChangeOpenId: PropTypes.func.isRequired,
+    deleteItemAndSetCount: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     id: -1,
     open: false,
-    check: false,
     title: '',
     childs: [],
 
     handleChangeOpenId: () => {},
+    deleteItemAndSetCount: () => {},
   };
 
   renderOpenChildBtn() {
     const {
-      childs, id, handleChangeOpenId
+      open, childs, id, handleChangeOpenId
     } = this.props;
 
     if (childs && childs.length) return (
       <div
         onClick={() => handleChangeOpenId(id)}
-        className="item__open-child-btn"
+        className={classNames(
+          'item__open-child-btn', { open }
+        )}
       >
-        Показать дочерние элементы
+        {`${open ? 'Скрыть' : 'Показать'} дочерние элементы`}
       </div>
     );
 
     return (
       <div className="item__open-child-btn empty">
-        Дочерние элементы элементы не найдены
+        Элементы не найдены
       </div>
     );
   }
@@ -73,24 +75,26 @@ class Item extends Component {
     require('./Item.scss');
 
     const {
-      open, title, check, id,
+      open, title, id, deleteItemAndSetCount
     } = this.props;
 
     return (
-      <div
-        className={classNames(
-          'item', { open, check }
-        )}
-      >
-        <div className="item__title">
-          {title}
-        </div>
-        {this.renderOpenChildBtn()}
+      <div className="item">
         <div
-          className="item__delete"
-          onClick={() => deleteItem(id)}
+          className={classNames(
+            'item-box', { open }
+          )}
         >
-          Удалить элемент
+          <div className="item__title">
+            {title}
+          </div>
+          {this.renderOpenChildBtn()}
+          <div
+            className="item__delete"
+            onClick={() => deleteItemAndSetCount(id)}
+          >
+            Удалить
+          </div>
         </div>
         {this.renderChilds()}
       </div>
@@ -100,7 +104,7 @@ class Item extends Component {
 
 
 const mapDispatchToProps = {
-  deleteItem
+  deleteItemAndSetCount
 };
 
 export default connect(()=>({}), mapDispatchToProps)(Item);

@@ -1,3 +1,58 @@
 .item {
-  position: relative;
+  margin: 0 20px 30px;
+
+  &-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    margin: 0 10px 10px;
+    padding: 10px;
+    background: #e9ffef;
+    border: solid 1px #c8e8d1;
+
+    &.open {
+      background: #fdfaff;
+      border: solid 1px #edd7fb;
+    }
+  }
+
+  &__title {
+    text-decoration: underline;
+  }
+
+  &__open-child-btn {
+    padding: 5px 10px;
+    width: 225px;
+    background: #8aaf95;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    transition: .2s;
+
+    &:hover, &.open {
+      background: #a18aaf;
+    }
+
+    &.open:hover {
+      background: #baa6c5;
+    }
+
+    &.empty {
+      background: #cbead4;
+    }
+  }
+
+  &__delete {
+    padding: 5px 10px;
+    background: #de9f9f;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    transition: .2s;
+
+    &:hover {
+      background: #ff6262;
+    }
+  }
 }

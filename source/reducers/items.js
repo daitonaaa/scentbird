@@ -62,6 +62,7 @@ function items(state = initialState, action) {
 
     case actionTypes.CATALOG_ITEMS_TOGGLE_CHILD_CHECK:
       indexes = getIndexes(state, action.itemId, action.childId);
+
       return state.setIn(
         ['list', indexes.itemIndex, 'childs', indexes.childIndex, 'check'],
         action.status
@@ -106,7 +107,7 @@ const getIndexes = (state, itemId, childId) => {
         .findIndex(elem => elem.get('id') === itemId)
     : null;
 
-  const childIndex = childId && itemIndex
+  const childIndex = childId && Number.isInteger(itemIndex)
     ? state.getIn(['list', itemIndex, 'childs'])
         .findIndex(elem => elem.get('id') === childId)
     : null;

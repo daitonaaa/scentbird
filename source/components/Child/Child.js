@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 
-import { toggleChildCheck, deleteItemChild } from 'actions/items';
+import { toggleChildCheckAndSetCount, deleteItemChildAndSetCount } from 'actions/items';
 
 
 class Child extends Component {
@@ -14,8 +14,8 @@ class Child extends Component {
     title: PropTypes.string.isRequired,
     parentId: PropTypes.number.isRequired,
 
-    deleteItemChild: PropTypes.func.isRequired,
-    toggleChildCheck: PropTypes.func.isRequired,
+    deleteItemChildAndSetCount: PropTypes.func.isRequired,
+    toggleChildCheckAndSetCount: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -24,15 +24,16 @@ class Child extends Component {
     title: '',
     parentId: -1,
 
-    deleteItemChild: () => {},
-    toggleChildCheck: () => {},
+    deleteItemChildAndSetCount: () => {},
+    toggleChildCheckAndSetCount: () => {},
   };
 
   render() {
     require('./Child.scss');
 
     const {
-      title, check, id, parentId, toggleChildCheck, deleteItemChild
+      title, check, id, parentId,
+      toggleChildCheckAndSetCount, deleteItemChildAndSetCount
     } = this.props;
 
     return (
@@ -45,16 +46,18 @@ class Child extends Component {
           {title}
         </div>
         <div
-          className="child__check-btn"
-          onClick={() => toggleChildCheck(parentId, id, !check)}
+          className={classNames(
+            'child__check-btn', { check }
+          )}
+          onClick={() => toggleChildCheckAndSetCount(parentId, id, !check)}
         >
           {check ? 'Снять выделение' : 'Выделить'}
         </div>
         <div
           className="child__delete-btn"
-          onClick={() => deleteItemChild(parentId, id)}
+          onClick={() => deleteItemChildAndSetCount(parentId, id)}
         >
-          Удалить дочерний элемент
+          Удалить
         </div>
       </div>
     );
@@ -63,7 +66,7 @@ class Child extends Component {
 
 
 const mapDispatchToProps = {
-  toggleChildCheck, deleteItemChild
+  toggleChildCheckAndSetCount, deleteItemChildAndSetCount
 };
 
 export default connect(()=>({}), mapDispatchToProps)(Child);

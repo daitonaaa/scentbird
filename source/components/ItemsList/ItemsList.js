@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import Item from 'components/Item/Item';
 
 import {
-  toggleCheckFirstChilds, uncheckAllChilds, getItemsList, setCheckedFirstBtnStatus
+  uncheckAllChildsAndResetCount, getItemsList, checkedFirstChilds
 } from 'actions/items';
 
 
@@ -20,9 +20,8 @@ class ItemsList extends Component {
     checkedFirst: PropTypes.bool.isRequired,
 
     getItemsList: PropTypes.func.isRequired,
-    uncheckAllChilds: PropTypes.func.isRequired,
-    toggleCheckFirstChilds: PropTypes.func.isRequired,
-    setCheckedFirstBtnStatus: PropTypes.func.isRequired,
+    checkedFirstChilds: PropTypes.func.isRequired,
+    uncheckAllChildsAndResetCount: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -33,9 +32,8 @@ class ItemsList extends Component {
     checkedFirst: false,
 
     getItemsList: () => {},
-    uncheckAllChilds: () => {},
-    toggleCheckFirstChilds: () => {},
-    setCheckedFirstBtnStatus: () => {},
+    checkedFirstChilds: () => {},
+    uncheckAllChildsAndResetCount: () => {},
   };
 
   state = {
@@ -49,15 +47,6 @@ class ItemsList extends Component {
     else this.setState({ openId: -1 });
   }
 
-  handleCheckedFirstBtn = () => {
-    const {
-      checkedFirst, toggleCheckFirstChilds, setCheckedFirstBtnStatus
-    } = this.props;
-
-    toggleCheckFirstChilds(!checkedFirst);
-    setCheckedFirstBtnStatus(!checkedFirst);
-  }
-
   renderError() {
     const { errorText } = this.props;
 
@@ -68,11 +57,31 @@ class ItemsList extends Component {
     );
   }
 
+  renderItemsList() {
+    const { list } = this.props;
+
+    if (list && !list.length) return (
+      <div className="items-list__list-no-items">
+        Элементы не найдены
+      </div>
+    );
+
+    return list.map(item =>
+      <Item
+        {...item}
+        key={item.id}
+        open={item.id === this.state.openId}
+        handleChangeOpenId={this.handleChangeOpenId}
+      />
+    );
+  }
+
   render() {
     require('./ItemsList.scss');
 
     const {
-      checkedFirst, count, request, list, getItemsList, uncheckAllChilds
+      checkedFirst, count, request, getItemsList,
+      uncheckAllChildsAndResetCount, checkedFirstChilds
     } = this.props;
 
     return (
@@ -83,7 +92,7 @@ class ItemsList extends Component {
             Это тестовый компонент
           </div>
           <div className="items-list__header-hint">
-            Список элементов с дочками и элементам управления
+            Список элементов с дочками и управлением
           </div>
         </div>
         <div className="items-list__count">
@@ -91,7 +100,7 @@ class ItemsList extends Component {
         </div>
         <div className="items-list__controls">
           <div
-            onClick={this.handleCheckedFirstBtn}
+            onClick={() => checkedFirstChilds(!checkedFirst)}
             className={classNames(
               'items-list__controls-checked-first-btn', { 'active': checkedFirst }
             )}
@@ -103,7 +112,7 @@ class ItemsList extends Component {
             }
           </div>
           <div
-            onClick={uncheckAllChilds}
+            onClick={uncheckAllChildsAndResetCount}
             className="items-list__controls-uncheck"
           >
             Снять выделение со всех дочерних элементов
@@ -120,14 +129,7 @@ class ItemsList extends Component {
             'items-list__list', { 'loading': request }
           )}
         >
-          {list.map(item =>
-            <Item
-              {...item}
-              key={item.id}
-              open={item.id === this.state.openId}
-              handleChangeOpenId={this.handleChangeOpenId}
-            />
-          )}
+          {this.renderItemsList()}
         </div>
       </div>
     );
@@ -136,7 +138,7 @@ class ItemsList extends Component {
 
 
 const mapDispatchToProps = {
-  toggleCheckFirstChilds, uncheckAllChilds, getItemsList, setCheckedFirstBtnStatus
+  checkedFirstChilds, uncheckAllChildsAndResetCount, getItemsList
 };
 
 export default connect(()=>({}), mapDispatchToProps)(ItemsList);

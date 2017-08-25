@@ -1,3 +1,54 @@
 .child {
-  position: relative;
+  display: flex;
+  margin: 5px 10px 0;
+  background: #fdfaff;
+  font-size: 13px;
+  border: solid 1px #edd7fb;
+  justify-content: space-between;
+  align-items: center;
+
+  &:last-child {
+    margin: 5px 10px 30px;
+  }
+
+  &.check {
+    background: #a18aaf;
+    color: #fff;
+    border: solid 1px #a18aaf;
+  }
+
+  &__title, &__check-btn, &__delete-btn {
+    padding: 5px 10px;
+    transition: .2s;
+  }
+
+  &__check-btn {
+    width: 135px;
+    background: #a18aaf;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+
+    &:hover {
+      background: #baa6c5;
+    }
+
+    &.check {
+      background: #fdfaff;
+      color: #785f88;
+    }
+  }
+
+  &__delete-btn {
+    padding: 5px;
+    background: #de9f9f;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    transition: .2s;
+
+    &:hover {
+      background: #ff6262;
+    }
+  }
 }
