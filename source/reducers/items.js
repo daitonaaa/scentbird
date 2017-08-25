@@ -39,15 +39,6 @@ function items(state = initialState, action) {
     case actionTypes.CATALOG_ITEMS_CHANGE_COUNT:
       return state.set('count', action.count);
 
-    case actionTypes.CATALOG_ITEMS_ADD_ITEM:
-      return state.update('list', list => list.push(action.item));
-
-    case actionTypes.CATALOG_ITEMS_ADD_ITEM_CHILD:
-      indexes = getIndexes(state, action.itemId);
-
-      return state.updateIn(
-        ['list', indexes.itemIndex, 'childs'], list => list.push(action.child));
-
     case actionTypes.CATALOG_ITEMS_DELETE_ITEM:
       indexes = getIndexes(state, action.itemId);
 

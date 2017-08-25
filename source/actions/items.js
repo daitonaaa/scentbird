@@ -31,19 +31,6 @@ export const changeCount = count => ({
 });
 
 
-export const addItem = item => ({
-  type: actionTypes.CATALOG_ITEMS_ADD_ITEM,
-  item
-});
-
-
-export const addItemChild = (itemId, childId) => ({
-  type: actionTypes.CATALOG_ITEMS_ADD_ITEM_CHILD,
-  itemId,
-  childId
-});
-
-
 export const resetAll = () => ({
   type: actionTypes.CATALOG_ITEMS_RESET
 });

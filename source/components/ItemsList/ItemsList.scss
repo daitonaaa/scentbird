@@ -20,13 +20,14 @@
       color: #777;
       text-align: center;
     }
-  }
 
-  &__count {
-    margin-bottom: 10px;
-    font-size: 21px;
-    color: #d87171;
-    text-align: center;
+    &-count {
+      margin-bottom: 10px;
+      font-size: 21px;
+      font-weight: 600;
+      color: #d87171;
+      text-align: center;
+    }
   }
 
   &__controls {

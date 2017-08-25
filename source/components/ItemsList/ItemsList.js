@@ -33,7 +33,7 @@ class ItemsList extends Component {
 
     getItemsList: () => {},
     checkedFirstChilds: () => {},
-    uncheckAllChildsAndResetCount: () => {},
+    uncheckAllChildsAndResetCount: () => {}
   };
 
   state = {
@@ -47,90 +47,122 @@ class ItemsList extends Component {
     else this.setState({ openId: -1 });
   }
 
+  handleResetList = () => {
+    const { getItemsList } = this.props;
+
+    getItemsList();
+    this.setState({openId: -1});
+  }
+
   renderError() {
     const { errorText } = this.props;
 
-    if (errorText && errorText.length) return (
-      <div className="items-list__error">
-        {errorText}
+    if (typeof errorText === 'string' && errorText.length) {
+      return (
+        <div className="items-list__error">
+          {errorText}
+        </div>
+      );
+    }
+  }
+
+  renderItemsList() {
+    const { list, request } = this.props;
+
+    if (!Array.isArray(list)) return;
+
+    if (list.length) return (
+      <div
+        className={classNames(
+          'items-list__list', { 'loading': request }
+        )}
+      >
+        {list.map(item =>
+          <Item
+            {...item}
+            key={item.id}
+            open={item.id === this.state.openId}
+            handleChangeOpenId={this.handleChangeOpenId}
+          />
+        )}
+      </div>
+    );
+
+    return (
+      <div
+        className={classNames(
+          'items-list__list', { 'loading': request }
+        )}
+      >
+        <div className="items-list__list-no-items">
+          Элементы не найдены
+        </div>
       </div>
     );
   }
 
-  renderItemsList() {
-    const { list } = this.props;
+  renderControls() {
+    const {
+      checkedFirst, uncheckAllChildsAndResetCount, checkedFirstChilds
+    } = this.props;
 
-    if (list && !list.length) return (
-      <div className="items-list__list-no-items">
-        Элементы не найдены
+    return (
+      <div className="items-list__controls">
+        <div
+          onClick={() => checkedFirstChilds(!checkedFirst)}
+          className={classNames(
+            'items-list__controls-checked-first-btn', { 'active': checkedFirst }
+          )}
+        >
+          {
+            checkedFirst
+            ? 'Снять выделение с дочерних элементов под интексом [0]'
+            : 'Выделить дочерние элементы под интексом [0]'
+          }
+        </div>
+        <div
+          onClick={uncheckAllChildsAndResetCount}
+          className="items-list__controls-uncheck"
+        >
+          Снять выделение со всех дочерних элементов
+        </div>
+        <div
+          onClick={this.handleResetList}
+          className="items-list__controls-reset"
+        >
+          Вернуться к изначальным данным (reset)
+        </div>
       </div>
     );
+  }
 
-    return list.map(item =>
-      <Item
-        {...item}
-        key={item.id}
-        open={item.id === this.state.openId}
-        handleChangeOpenId={this.handleChangeOpenId}
-      />
+  renderHeader() {
+    const { count } = this.props;
+
+    return (
+      <div className="items-list__header">
+        <div className="items-list__header-title">
+          Это тестовый компонент
+        </div>
+        <div className="items-list__header-hint">
+          Список элементов с дочками, управлением и счётчиком
+        </div>
+        <div className="items-list__header-count">
+          {`Выделено дочерних элементов: ${count}`}
+        </div>
+      </div>
     );
   }
 
   render() {
     require('./ItemsList.scss');
 
-    const {
-      checkedFirst, count, request, getItemsList,
-      uncheckAllChildsAndResetCount, checkedFirstChilds
-    } = this.props;
-
     return (
       <div className="items-list">
         {this.renderError()}
-        <div className="items-list__header">
-          <div className="items-list__header-title">
-            Это тестовый компонент
-          </div>
-          <div className="items-list__header-hint">
-            Список элементов с дочками и управлением
-          </div>
-        </div>
-        <div className="items-list__count">
-          {`Выделено дочерних элементов: ${count}`}
-        </div>
-        <div className="items-list__controls">
-          <div
-            onClick={() => checkedFirstChilds(!checkedFirst)}
-            className={classNames(
-              'items-list__controls-checked-first-btn', { 'active': checkedFirst }
-            )}
-          >
-            {
-              checkedFirst
-              ? 'Снять выделение с дочерних элементов под интексом [0]'
-              : 'Выделить дочерние элементы под интексом [0]'
-            }
-          </div>
-          <div
-            onClick={uncheckAllChildsAndResetCount}
-            className="items-list__controls-uncheck"
-          >
-            Снять выделение со всех дочерних элементов
-          </div>
-          <div
-            onClick={getItemsList}
-            className="items-list__controls-reset"
-          >
-            Вернуться к изначальным данным (reset)
-          </div>
-        </div>
-        <div
-          className={classNames(
-            'items-list__list', { 'loading': request }
-          )}
-        >
-          {this.renderItemsList()}
-        </div>
+        {this.renderHeader()}
+        {this.renderControls()}
+        {this.renderItemsList()}
       </div>
     );
   }

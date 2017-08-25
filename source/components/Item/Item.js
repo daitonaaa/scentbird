@@ -32,10 +32,23 @@ class Item extends Component {
     deleteItemAndSetCount: () => {},
   };
 
+  componentWillReceiveProps(nextProps) {
+    const oldChilds = this.props.childs;
+    const { open, childs, handleChangeOpenId } = nextProps;
+
+    if (!Array.isArray(childs) || !Array.isArray(oldChilds)) return;
+
+    if (open && oldChilds.length && !childs.length) {
+      handleChangeOpenId(-1);
+    }
+  }
+
   renderOpenChildBtn() {
     const {
       open, childs, id, handleChangeOpenId
     } = this.props;
+
+    if (!Array.isArray(childs)) return;
 
     if (childs && childs.length) return (
       <div
@@ -55,8 +68,19 @@ class Item extends Component {
     );
   }
 
+  handleDeleteItem = id => {
+    const {
+      open, deleteItemAndSetCount, handleChangeOpenId
+    } = this.props;
+
+    deleteItemAndSetCount(id);
+    if (open) handleChangeOpenId(-1);
+  }
+
   renderChilds() {
     const { open, childs, id } = this.props;
+
+    if (!Array.isArray(childs)) return;
 
     if (open && childs && childs.length) {
       return (
@@ -75,7 +99,7 @@ class Item extends Component {
     require('./Item.scss');
 
     const {
-      open, title, id, deleteItemAndSetCount
+      open, title, id,
     } = this.props;
 
     return (
@@ -91,7 +115,7 @@ class Item extends Component {
           {this.renderOpenChildBtn()}
           <div
             className="item__delete"
-            onClick={() => deleteItemAndSetCount(id)}
+            onClick={() => this.handleDeleteItem(id)}
           >
             Удалить
           </div>

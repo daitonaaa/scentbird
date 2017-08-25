@@ -7,7 +7,7 @@ export default {
 
   getItemsList: () => new Promise(
     (resolve, reject) => setTimeout(
-      () => resolve(list), 1000
+      () => resolve(list), 2000
     )
   )
 };

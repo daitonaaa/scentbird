@@ -33,22 +33,17 @@ class Child extends Component {
 
     const {
       title, check, id, parentId,
-      toggleChildCheckAndSetCount, deleteItemChildAndSetCount
+      toggleChildCheckAndSetCount,
+      deleteItemChildAndSetCount
     } = this.props;
 
     return (
-      <div
-        className={classNames(
-          'child', { check }
-        )}
-      >
+      <div className={classNames('child', { check })}>
         <div className="child__title">
           {`${title} ${id}`}
         </div>
         <div
-          className={classNames(
-            'child__check-btn', { check }
-          )}
+          className={classNames('child__check-btn', { check })}
           onClick={() => toggleChildCheckAndSetCount(parentId, id, !check)}
         >
           {check ? 'Снять выделение' : 'Выделить'}
