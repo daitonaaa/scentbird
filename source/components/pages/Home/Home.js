@@ -32,7 +32,7 @@ class Home extends Component {
     const { items } = this.props;
 
     return (
-      <div className="content">
+      <div className="home">
         <Helmet>
           <title>Главная</title>
         </Helmet>

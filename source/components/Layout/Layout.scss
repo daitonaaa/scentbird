@@ -1,9 +1,12 @@
 @import '~vars.scss';
 
 .layout {
-  margin: 100px auto 50px;
+  padding: 100px 0 50px;
+}
+
+.content {
+  margin: 0 auto;
   width: 700px;
   background: #fff;
   border: solid 1px #cecece;
 }
-

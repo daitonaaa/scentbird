@@ -13,7 +13,9 @@ export default class Layout extends Component {
 
     return (
       <div className="layout">
-        {this.props.children}
+        <div className="content">
+          {this.props.children}
+        </div>
       </div>
     );
   }

@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { toggleChildCheckAndSetCount, deleteItemChildAndSetCount } from 'actions/items';
 
 
-class Child extends Component {
+class CreateForm extends Component {
 
   static propTypes = {
     id: PropTypes.number.isRequired,
@@ -29,35 +29,20 @@ class Child extends Component {
   };
 
   render() {
-    require('./Child.scss');
+    require('./CreateForm.scss');
 
-    const {
-      title, check, id, parentId,
-      toggleChildCheckAndSetCount, deleteItemChildAndSetCount
-    } = this.props;
+    // const {
+    //   title, check, id, parentId,
+    //   toggleChildCheckAndSetCount, deleteItemChildAndSetCount
+    // } = this.props;
 
     return (
-      <div
-        className={classNames(
-          'child', { check }
-        )}
-      >
-        <div className="child__title">
-          {`${title} ${id}`}
-        </div>
-        <div
-          className={classNames(
-            'child__check-btn', { check }
-          )}
-          onClick={() => toggleChildCheckAndSetCount(parentId, id, !check)}
-        >
-          {check ? 'Снять выделение' : 'Выделить'}
-        </div>
-        <div
-          className="child__delete-btn"
-          onClick={() => deleteItemChildAndSetCount(parentId, id)}
-        >
-          Удалить
+      <div className="create-form">
+        <div className="create-form__select">
+          <select>
+            <option value="item">Элемент</option>
+            <option value="child">Дочку</option>
+          </select>
         </div>
       </div>
     );
@@ -69,4 +54,4 @@ const mapDispatchToProps = {
   toggleChildCheckAndSetCount, deleteItemChildAndSetCount
 };
 
-export default connect(()=>({}), mapDispatchToProps)(Child);
+export default connect(()=>({}), mapDispatchToProps)(CreateForm);

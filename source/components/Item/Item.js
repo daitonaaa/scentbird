@@ -86,7 +86,7 @@ class Item extends Component {
           )}
         >
           <div className="item__title">
-            {title}
+            {`${title} ${id}`}
           </div>
           {this.renderOpenChildBtn()}
           <div
