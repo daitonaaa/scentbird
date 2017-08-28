@@ -50,7 +50,7 @@ class Item extends Component {
 
     if (!Array.isArray(childs)) return;
 
-    if (childs && childs.length) return (
+    if (childs.length) return (
       <div
         onClick={() => handleChangeOpenId(id)}
         className={classNames(
@@ -82,7 +82,7 @@ class Item extends Component {
 
     if (!Array.isArray(childs)) return;
 
-    if (open && childs && childs.length) {
+    if (open && childs.length) {
       return (
         <div className="item__childs">
           {
