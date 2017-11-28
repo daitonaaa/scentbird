@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import './Item.scss';
 
-import Child from 'components/Child/Child';
+import Child from 'components/Child';
 
 import { deleteItemAndSetCount } from 'actions/items';
 

@@ -2,7 +2,7 @@ import url from 'urls';
 import React from 'react';
 import { Route, IndexRoute, Redirect } from 'react-router';
 
-import Layout from 'components/Layout/Layout';
+import Layout from 'components/Layout';
 import { Home, Error404 } from 'components/pages';
 
 

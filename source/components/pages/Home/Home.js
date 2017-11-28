@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 
 import './Home.scss';
 
-import ItemsList from 'components/ItemsList/ItemsList';
+import ItemsList from 'components/ItemsList';
 
 import { getItemsList } from 'actions/items';
 

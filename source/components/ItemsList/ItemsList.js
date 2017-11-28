@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import './ItemsList.scss';
 
-import Item from 'components/Item/Item';
+import Item from 'components/Item';
 
 import {
   getItemsList,
@@ -65,7 +65,7 @@ class ItemsList extends Component {
     } = this.props;
 
     count === 0
-      ? checkedFirstChilds(checkedFirst)
+      ? checkedFirstChilds(true)
       : checkedFirstChilds(!checkedFirst);
   }
 
