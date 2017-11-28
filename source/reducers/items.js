@@ -93,15 +93,13 @@ export default helpers.immutableize(items);
 // helpers
 const getIndexes = (state, itemId, childId) => {
 
-  const itemIndex = itemId
-    ? state.get('list')
-        .findIndex(elem => elem.get('id') === itemId)
-    : null;
+  const itemIndex = state.get('list').findIndex(
+    elem => elem.get('id') === itemId
+  );
 
-  const childIndex = childId && Number.isInteger(itemIndex)
-    ? state.getIn(['list', itemIndex, 'childs'])
-        .findIndex(elem => elem.get('id') === childId)
-    : null;
+  const childIndex = state
+    .getIn(['list', itemIndex, 'childs'])
+      .findIndex(elem => elem.get('id') === childId);
 
   return { itemIndex, childIndex };
 };

@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
+import './Layout.scss';
+
 
 export default class Layout extends Component {
 
@@ -9,8 +11,6 @@ export default class Layout extends Component {
   };
 
   render() {
-    require('./Layout.scss');
-
     return (
       <div className="layout">
         <div className="content">

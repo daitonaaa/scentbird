@@ -3,10 +3,14 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 
+import './ItemsList.scss';
+
 import Item from 'components/Item/Item';
 
 import {
-  uncheckAllChildsAndResetCount, getItemsList, checkedFirstChilds
+  getItemsList,
+  checkedFirstChilds,
+  uncheckAllChildsAndResetCount,
 } from 'actions/items';
 
 
@@ -41,10 +45,9 @@ class ItemsList extends Component {
   }
 
   handleChangeOpenId = id => {
-    const openId = this.state.openId;
+    const { openId } = this.state;
 
-    if (id !== openId) this.setState({ openId: id });
-    else this.setState({ openId: -1 });
+    this.setState({ openId: id !== openId ? id : -1 });
   }
 
   handleResetList = () => {
@@ -52,6 +55,18 @@ class ItemsList extends Component {
 
     getItemsList();
     this.setState({openId: -1});
+  }
+
+  handleCheckedFirstChilds = () => {
+    const {
+      count,
+      checkedFirst,
+      checkedFirstChilds,
+    } = this.props;
+
+    count === 0
+      ? checkedFirstChilds(checkedFirst)
+      : checkedFirstChilds(!checkedFirst);
   }
 
   renderError() {
@@ -67,6 +82,7 @@ class ItemsList extends Component {
   }
 
   renderItemsList() {
+    const { openId } = this.state;
     const { list, request } = this.props;
 
     if (!Array.isArray(list)) return;
@@ -81,8 +97,8 @@ class ItemsList extends Component {
           <Item
             {...item}
             key={item.id}
-            open={item.id === this.state.openId}
-            handleChangeOpenId={this.handleChangeOpenId}
+            open={item.id === openId}
+            onChangeOpenId={this.handleChangeOpenId}
           />
         )}
       </div>
@@ -103,21 +119,25 @@ class ItemsList extends Component {
 
   renderControls() {
     const {
-      checkedFirst, uncheckAllChildsAndResetCount, checkedFirstChilds
+      count,
+      checkedFirst,
+      uncheckAllChildsAndResetCount,
     } = this.props;
+
+    const active = checkedFirst;
 
     return (
       <div className="items-list__controls">
         <div
-          onClick={() => checkedFirstChilds(!checkedFirst)}
+          onClick={this.handleCheckedFirstChilds}
           className={classNames(
-            'items-list__controls-checked-first-btn', { 'active': checkedFirst }
+            'items-list__controls-checked-first-btn', { active }
           )}
         >
           {
-            checkedFirst
-            ? 'Снять выделение с дочерних элементов под интексом [0]'
-            : 'Выделить дочерние элементы под интексом [0]'
+            checkedFirst && count !== 0
+              ? 'Снять выделение с дочерних элементов под интексом [0]'
+              : 'Выделить дочерние элементы под интексом [0]'
           }
         </div>
         <div
@@ -155,8 +175,6 @@ class ItemsList extends Component {
   }
 
   render() {
-    require('./ItemsList.scss');
-
     return (
       <div className="items-list">
         {this.renderError()}
@@ -170,7 +188,9 @@ class ItemsList extends Component {
 
 
 const mapDispatchToProps = {
-  checkedFirstChilds, uncheckAllChildsAndResetCount, getItemsList
+  getItemsList,
+  checkedFirstChilds,
+  uncheckAllChildsAndResetCount,
 };
 
 export default connect(()=>({}), mapDispatchToProps)(ItemsList);

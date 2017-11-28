@@ -18,7 +18,7 @@ class Item extends Component {
     title: PropTypes.string.isRequired,
     childs: PropTypes.array.isRequired,
 
-    handleChangeOpenId: PropTypes.func.isRequired,
+    onChangeOpenId: PropTypes.func.isRequired,
     deleteItemAndSetCount: PropTypes.func.isRequired,
   };
 
@@ -28,31 +28,52 @@ class Item extends Component {
     title: '',
     childs: [],
 
-    handleChangeOpenId: () => {},
+    onChangeOpenId: () => {},
     deleteItemAndSetCount: () => {},
   };
 
   componentWillReceiveProps(nextProps) {
+    const {
+      open,
+      childs,
+      onChangeOpenId,
+    } = nextProps;
     const oldChilds = this.props.childs;
-    const { open, childs, handleChangeOpenId } = nextProps;
 
-    if (!Array.isArray(childs) || !Array.isArray(oldChilds)) return;
+    if (
+      !open
+      || !Array.isArray(childs)
+      || !Array.isArray(oldChilds)
+    ) return;
 
-    if (open && oldChilds.length && !childs.length) {
-      handleChangeOpenId(-1);
+    if (oldChilds.length && !childs.length) {
+      onChangeOpenId(-1);
     }
+  }
+
+  handleDeleteItem = () => {
+    const {
+      id,
+      open,
+      onChangeOpenId,
+      deleteItemAndSetCount,
+    } = this.props;
+
+    deleteItemAndSetCount(id);
+    if (open) onChangeOpenId(-1);
   }
 
   renderOpenChildBtn() {
     const {
-      open, childs, id, handleChangeOpenId
+      id,
+      open,
+      childs,
+      onChangeOpenId,
     } = this.props;
 
-    if (!Array.isArray(childs)) return;
-
-    if (childs.length) return (
+    if (childs instanceof Array && childs.length) return (
       <div
-        onClick={() => handleChangeOpenId(id)}
+        onClick={() => onChangeOpenId(id)}
         className={classNames(
           'item__open-child-btn', { open }
         )}
@@ -68,38 +89,29 @@ class Item extends Component {
     );
   }
 
-  handleDeleteItem = id => {
-    const {
-      open, deleteItemAndSetCount, handleChangeOpenId
-    } = this.props;
-
-    deleteItemAndSetCount(id);
-    if (open) handleChangeOpenId(-1);
-  }
-
   renderChilds() {
     const { open, childs, id } = this.props;
 
-    if (!Array.isArray(childs)) return;
-
-    if (open && childs.length) {
+    if (open && childs instanceof Array) {
       return (
         <div className="item__childs">
-          {
-            childs.map(item =>
-              <Child key={item.id} parentId={id} {...item} />
-            )
-          }
+          {childs.map(item =>
+            <Child
+              {...item}
+              parentId={id}
+              key={item.id}
+            />
+          )}
         </div>
       );
     }
   }
 
   render() {
-    require('./Item.scss');
-
     const {
-      open, title, id,
+      id,
+      open,
+      title,
     } = this.props;
 
     return (
@@ -115,7 +127,7 @@ class Item extends Component {
           {this.renderOpenChildBtn()}
           <div
             className="item__delete"
-            onClick={() => this.handleDeleteItem(id)}
+            onClick={this.handleDeleteItem}
           >
             Удалить
           </div>

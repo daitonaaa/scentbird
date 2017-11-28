@@ -3,7 +3,12 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 
-import { toggleChildCheckAndSetCount, deleteItemChildAndSetCount } from 'actions/items';
+import './Child.scss';
+
+import {
+  deleteItemChildAndSetCount,
+  toggleChildCheckAndSetCount,
+} from 'actions/items';
 
 
 class Child extends Component {
@@ -28,13 +33,32 @@ class Child extends Component {
     toggleChildCheckAndSetCount: () => {},
   };
 
-  render() {
-    require('./Child.scss');
-
+  handleToggleCheck = () => {
     const {
-      title, check, id, parentId,
+      id,
+      check,
+      parentId,
       toggleChildCheckAndSetCount,
-      deleteItemChildAndSetCount
+    } = this.props;
+
+    toggleChildCheckAndSetCount(parentId, id, !check);
+  }
+
+  handleDeleteItemChild = () => {
+    const {
+      id,
+      parentId,
+      deleteItemChildAndSetCount,
+    } = this.props;
+
+    deleteItemChildAndSetCount(parentId, id);
+  }
+
+  render() {
+    const {
+      id,
+      title,
+      check,
     } = this.props;
 
     return (
@@ -43,14 +67,14 @@ class Child extends Component {
           {`${title} ${id}`}
         </div>
         <div
+          onClick={this.handleToggleCheck}
           className={classNames('child__check-btn', { check })}
-          onClick={() => toggleChildCheckAndSetCount(parentId, id, !check)}
         >
           {check ? 'Снять выделение' : 'Выделить'}
         </div>
         <div
           className="child__delete-btn"
-          onClick={() => deleteItemChildAndSetCount(parentId, id)}
+          onClick={this.handleDeleteItemChild}
         >
           Удалить
         </div>
@@ -61,7 +85,8 @@ class Child extends Component {
 
 
 const mapDispatchToProps = {
-  toggleChildCheckAndSetCount, deleteItemChildAndSetCount
+  deleteItemChildAndSetCount,
+  toggleChildCheckAndSetCount,
 };
 
 export default connect(()=>({}), mapDispatchToProps)(Child);
