@@ -5,7 +5,9 @@ import React, { Component } from 'react';
 
 import './Home.scss';
 
+import Controls from 'components/Controls';
 import ItemsList from 'components/ItemsList';
+import CreateForm from 'components/CreateForm';
 
 import { getItemsList } from 'actions/items';
 
@@ -13,13 +15,15 @@ import { getItemsList } from 'actions/items';
 class Home extends Component {
 
   static propTypes = {
-    items: PropTypes.object.isRequired,
+    count: PropTypes.number.isRequired,
+    errorText: PropTypes.string.isRequired,
 
     getItemsList: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
-    items: {},
+    count: 0,
+    errorText: '',
 
     getItemsList: () => {}
   };
@@ -28,27 +32,65 @@ class Home extends Component {
     this.props.getItemsList();
   }
 
-  render() {
-    const { items } = this.props;
+  renderError() {
+    const { errorText } = this.props;
+
+    if (typeof errorText === 'string' && errorText.length) {
+      return (
+        <div className="items-list__error">
+          {errorText}
+        </div>
+      );
+    }
+  }
+
+  renderHeader() {
+    const { count } = this.props;
 
     return (
+      <div className="items-list__header">
+        <div className="items-list__header-title">
+          Пример мини приложения на React.JS
+        </div>
+        <div className="items-list__header-hint">
+          <span>
+            Код можно посмотреть тут -
+          </span>
+          <a href="https://github.com/Cast0001/code-example" target="_blank">
+            Cast0001
+          </a>
+        </div>
+        <div className="items-list__header-count">
+          {`Выделено дочерних элементов: ${count}`}
+        </div>
+      </div>
+    );
+  }
+
+  render() {
+    return (
       <div className="home">
-        <Helmet>
-          <title>
-            Главная
-          </title>
-        </Helmet>
-        <ItemsList {...items} />
+        <Helmet><title>Пример кода</title></Helmet>
+        {this.renderError()}
+        {this.renderHeader()}
+        <Controls />
+        <ItemsList />
+        <CreateForm />
       </div>
     );
   }
 }
 
+
 const mapStateToProps = state => ({
-  items: state.items
+  ...state.items,
 });
+
+const mapDispatchToProps = {
+  getItemsList,
+};
 
 export default connect(
   mapStateToProps,
-  { getItemsList }
+  mapDispatchToProps
 )(Home);

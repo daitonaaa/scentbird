@@ -1,0 +1,24 @@
+.controls {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+
+    & div {
+      box-sizing: border-box;
+      margin: 4%;
+      padding: 10px;
+      width: 28%;
+      background: #f1f1f1;
+      font-size: 13px;
+      text-align: center;
+      border: solid 1px #dcdcdc;
+      cursor: pointer;
+      transition: .2s;
+
+      &:hover {
+        background: #a18aaf;
+        color: #fff;
+        border: solid 1px #a18aaf;
+      }
+    }
+  }

@@ -8,6 +8,7 @@ const initialState = Immutable.fromJS({
   checkedFirst: false,
   request: false,
   errorText: '',
+  openedItem: 0,
   count: 0,
   list: []
 });
@@ -35,6 +36,12 @@ function items(state = initialState, action) {
         list: action.list,
         request: false
       });
+
+    case actionTypes.CATALOG_ITEMS_SET_OPEN_ID:
+      return state.set('openedItem', action.itemId);
+
+    case actionTypes.CATALOG_ITEMS_RESET_OPEN_ID:
+      return state.set('openedItem', 0);
 
     case actionTypes.CATALOG_ITEMS_CHANGE_COUNT:
       return state.set('count', action.count);
@@ -79,6 +86,27 @@ function items(state = initialState, action) {
         )
       );
 
+    case actionTypes.CATALOG_ITEMS_CREATE_ITEM:
+      return state.update('list',
+        list => list.push({
+          childs: [],
+          id: action.id,
+          title: action.title,
+        })
+      );
+
+    case actionTypes.CATALOG_ITEMS_CREATE_CHILD:
+      const itemIndex = state.get('list').findIndex(
+        elem => elem.get('id') === action.parentId
+      );
+
+      return state.updateIn(['list', itemIndex, 'childs'],
+        list => list.push({
+          id: action.id,
+          title: action.title,
+        })
+      );
+
     case actionTypes.CATALOG_ITEMS_RESET:
       return initialState;
 
@@ -97,9 +125,11 @@ const getIndexes = (state, itemId, childId) => {
     elem => elem.get('id') === itemId
   );
 
-  const childIndex = state
+  let childIndex = null;
+
+  if (childId) childIndex = state
     .getIn(['list', itemIndex, 'childs'])
-      .findIndex(elem => elem.get('id') === childId);
+    .findIndex(elem => elem.get('id') === childId);
 
   return { itemIndex, childIndex };
 };

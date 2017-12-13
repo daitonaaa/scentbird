@@ -6,8 +6,13 @@ import { connect } from 'react-redux';
 import './Item.scss';
 
 import Child from 'components/Child';
+import CreateForm from 'components/CreateForm';
 
-import { deleteItemAndSetCount } from 'actions/items';
+import {
+  setOpenId,
+  resetOpenId,
+  deleteItemAndSetCount,
+} from 'actions/items';
 
 
 class Item extends Component {
@@ -18,62 +23,74 @@ class Item extends Component {
     title: PropTypes.string.isRequired,
     childs: PropTypes.array.isRequired,
 
-    onChangeOpenId: PropTypes.func.isRequired,
+    setOpenId: PropTypes.func.isRequired,
+    resetOpenId: PropTypes.func.isRequired,
     deleteItemAndSetCount: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
-    id: -1,
+    id: 0,
     open: false,
     title: '',
     childs: [],
 
-    onChangeOpenId: () => {},
+    setOpenId: () => {},
+    resetOpenId: () => {},
     deleteItemAndSetCount: () => {},
   };
 
   componentWillReceiveProps(nextProps) {
+    const oldChilds = this.props.childs;
     const {
       open,
       childs,
-      onChangeOpenId,
+      resetOpenId,
     } = nextProps;
-    const oldChilds = this.props.childs;
 
-    if (
-      !open
-      || !Array.isArray(childs)
-      || !Array.isArray(oldChilds)
-    ) return;
-
-    if (oldChilds.length && !childs.length) {
-      onChangeOpenId(-1);
+    if (!Array.isArray(childs) || !Array.isArray(oldChilds)) {
+      return;
     }
+
+    if (open && oldChilds.length && !childs.length) {
+      resetOpenId();
+    }
+  }
+
+  handleChangeOpenId = () => {
+    const {
+      id,
+      open,
+      setOpenId,
+      resetOpenId,
+    } = this.props;
+
+    open
+      ? resetOpenId()
+      : setOpenId(id);
   }
 
   handleDeleteItem = () => {
     const {
       id,
       open,
-      onChangeOpenId,
+      resetOpenId,
       deleteItemAndSetCount,
     } = this.props;
 
     deleteItemAndSetCount(id);
-    if (open) onChangeOpenId(-1);
+
+    if (open) resetOpenId();
   }
 
   renderOpenChildBtn() {
     const {
-      id,
       open,
       childs,
-      onChangeOpenId,
     } = this.props;
 
     if (childs instanceof Array && childs.length) return (
       <div
-        onClick={() => onChangeOpenId(id)}
+        onClick={this.handleChangeOpenId}
         className={classNames(
           'item__open-child-btn', { open }
         )}
@@ -83,28 +100,47 @@ class Item extends Component {
     );
 
     return (
-      <div className="item__open-child-btn empty">
-        Элементы не найдены
+      <div
+        onClick={this.handleChangeOpenId}
+        className="item__open-child-btn empty"
+      >
+        {open ? 'Скрыть создание элемента' : 'Создать дочерний элемент'}
       </div>
     );
   }
 
   renderChilds() {
-    const { open, childs, id } = this.props;
+    const {
+      id,
+      childs,
+    } = this.props;
 
-    if (open && childs instanceof Array) {
-      return (
-        <div className="item__childs">
-          {childs.map(item =>
-            <Child
-              {...item}
-              parentId={id}
-              key={item.id}
-            />
-          )}
-        </div>
+    if (childs instanceof Array) {
+      return childs.map(item =>
+        <Child
+          {...item}
+          parentId={id}
+          key={item.id}
+        />
       );
     }
+  }
+
+  renderOpenedItem() {
+    const {
+      id,
+      open,
+    } = this.props;
+
+    if (open) return (
+      <div className="item__childs">
+        {this.renderChilds()}
+        <CreateForm
+          childPosition
+          parentId={id}
+        />
+      </div>
+    );
   }
 
   render() {
@@ -116,13 +152,9 @@ class Item extends Component {
 
     return (
       <div className="item">
-        <div
-          className={classNames(
-            'item-box', { open }
-          )}
-        >
+        <div className={classNames('item-box', { open })}>
           <div className="item__title">
-            {`${title} ${id}`}
+            <span>{id}:</span> {title}
           </div>
           {this.renderOpenChildBtn()}
           <div
@@ -132,7 +164,7 @@ class Item extends Component {
             Удалить
           </div>
         </div>
-        {this.renderChilds()}
+        {this.renderOpenedItem()}
       </div>
     );
   }
@@ -140,7 +172,12 @@ class Item extends Component {
 
 
 const mapDispatchToProps = {
-  deleteItemAndSetCount
+  setOpenId,
+  resetOpenId,
+  deleteItemAndSetCount,
 };
 
-export default connect(()=>({}), mapDispatchToProps)(Item);
+export default connect(
+  ()=>({}),
+  mapDispatchToProps
+)(Item);

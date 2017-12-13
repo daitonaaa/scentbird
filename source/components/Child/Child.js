@@ -64,7 +64,7 @@ class Child extends Component {
     return (
       <div className={classNames('child', { check })}>
         <div className="child__title">
-          {`${title} ${id}`}
+          <span>{id}:</span> {title}
         </div>
         <div
           onClick={this.handleToggleCheck}
@@ -89,4 +89,7 @@ const mapDispatchToProps = {
   toggleChildCheckAndSetCount,
 };
 
-export default connect(()=>({}), mapDispatchToProps)(Child);
+export default connect(
+  ()=>({}),
+  mapDispatchToProps
+)(Child);

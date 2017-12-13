@@ -36,6 +36,17 @@ export const resetAll = () => ({
 });
 
 
+export const setOpenId = itemId => ({
+  type: actionTypes.CATALOG_ITEMS_SET_OPEN_ID,
+  itemId
+});
+
+
+export const resetOpenId = () => ({
+  type: actionTypes.CATALOG_ITEMS_RESET_OPEN_ID,
+});
+
+
 export const toggleChildCheck = (itemId, childId, status) => ({
   type: actionTypes.CATALOG_ITEMS_TOGGLE_CHILD_CHECK,
   status,
@@ -74,6 +85,21 @@ export const uncheckAllChilds = () => ({
 });
 
 
+export const createItem = (title, id) => ({
+  type: actionTypes.CATALOG_ITEMS_CREATE_ITEM,
+  title,
+  id,
+});
+
+
+export const createChild = (parentId, title, id) => ({
+  type: actionTypes.CATALOG_ITEMS_CREATE_CHILD,
+  parentId,
+  title,
+  id,
+});
+
+
 export const getItemsList = (params = {}) => dispatch => {
   dispatch(resetAll());
   dispatch(setRequestStatus(true));
@@ -81,7 +107,7 @@ export const getItemsList = (params = {}) => dispatch => {
   return api.getItemsList(params).then(
     response => dispatch(setItemsList(response)),
     error => dispatch(setErrorText(
-      'Ошибка на сервере! Но такого не может быть, ведь сервера то и нет'
+      'Ошибка на сервере! Но такого не может быть, ведь сервера то и нет!'
     ))
   );
 };

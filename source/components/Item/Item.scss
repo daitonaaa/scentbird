@@ -1,5 +1,5 @@
 .item {
-  margin: 0 20px 30px;
+  margin: 0 20px 20px;
 
   &-box {
     display: flex;
@@ -18,7 +18,11 @@
   }
 
   &__title {
+    overflow: hidden;
+    width: 300px;
     font-weight: 600;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   &__open-child-btn {
@@ -30,7 +34,8 @@
     cursor: pointer;
     transition: .2s;
 
-    &:hover, &.open {
+    &:hover,
+    &.open {
       background: #a18aaf;
     }
 
@@ -39,8 +44,11 @@
     }
 
     &.empty {
-      background: #cbead4;
-      cursor: default;
+      background: #448859;
+
+      &:hover {
+        background: #a18aaf;
+      }
     }
   }
 
@@ -55,5 +63,9 @@
     &:hover {
       background: #ff6262;
     }
+  }
+
+  &__childs {
+    margin-bottom: 70px;
   }
 }

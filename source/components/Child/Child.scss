@@ -1,46 +1,63 @@
 .child {
-  display: flex;
-  margin: 5px 10px 0;
-  background: #fdfaff;
+  position: relative;
+  overflow: hidden;
+  margin: 15px 10px 0;
+  background: #a18aaf;
   font-size: 13px;
-  border: solid 1px #edd7fb;
-  justify-content: space-between;
   align-items: center;
-
-  &:last-child {
-    margin: 5px 10px 30px;
-  }
+  border-radius: 5px;
 
   &.check {
     background: #647da2;
     color: #fff;
-    border: solid 1px #647da2;
   }
 
   &__title, &__check-btn, &__delete-btn {
+    display: inline-block;
     padding: 5px 10px;
-    transition: .2s;
+    transition: all .2s ease;
+    vertical-align: middle;
+  }
+
+  &__title {
+    overflow: hidden;
+    width: 245px;
+    white-space: nowrap;
+    color: #fff;
+    text-overflow: ellipsis;
+
+    span {
+      margin-left: 5px;
+      font-weight: 600;
+    }
   }
 
   &__check-btn {
     width: 135px;
-    background: #a18aaf;
+    background: #baa6c5;
     color: #fff;
     text-align: center;
     cursor: pointer;
 
     &:hover {
-      background: #baa6c5;
+      background: #dac7e4;
     }
 
     &.check {
-      background: #fdfaff;
-      color: #647da2;
+      background: #7690b5;
+      color: #fff;
+
+      &:hover {
+        background: #91acd2;
+      }
     }
   }
 
   &__delete-btn {
-    padding: 5px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px 17px;
     background: #de9f9f;
     color: #fff;
     text-align: center;
