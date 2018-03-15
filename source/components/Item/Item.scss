@@ -24,7 +24,7 @@
   &__title {
     overflow: hidden;
     padding-right: 20px;
-    width: 330px;
+    width: 230px;
     font-weight: 600;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -32,6 +32,26 @@
 
   &.open &__title {
     color: #866b98;
+  }
+
+  &__checked-childs-btn {
+    padding: 5px 10px;
+    width: 140px;
+    background: #7690b5;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .2s;
+
+    &:hover,
+    &.checked {
+      background: #de9f9f;
+    }
+
+    &.checked:hover {
+      background: #ff6262;
+    }
   }
 
   &__open-child-btn {
@@ -43,20 +63,31 @@
     cursor: pointer;
     transition: .2s;
 
-    &:hover,
-    &.open {
-      background: #a18aaf;
+    &:hover {
+      background: #448859;
     }
 
-    &.open:hover {
-      background: #baa6c5;
+    &.open {
+      background: #de9f9f;
+
+      &:hover {
+        background: #ff6262;
+      }
     }
 
     &.empty {
       background: #448859;
 
       &:hover {
-        background: #a18aaf;
+        background: #28653b;
+      }
+
+      &.open {
+        background: #de9f9f;
+
+        &:hover {
+          background: #ff6262;
+        }
       }
     }
   }

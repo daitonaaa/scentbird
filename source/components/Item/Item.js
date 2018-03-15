@@ -11,6 +11,7 @@ import CreateForm from 'components/CreateForm';
 import {
   setOpenId,
   resetOpenId,
+  toggleItemChildsCheck,
   deleteItemAndSetCount,
 } from 'actions/items';
 
@@ -25,6 +26,7 @@ class Item extends Component {
 
     setOpenId: PropTypes.func.isRequired,
     resetOpenId: PropTypes.func.isRequired,
+    toggleItemChildsCheck: PropTypes.func.isRequired,
     deleteItemAndSetCount: PropTypes.func.isRequired,
   };
 
@@ -43,6 +45,22 @@ class Item extends Component {
     if (open && oldChilds.length && !childs.length) {
       resetOpenId();
     }
+  }
+
+  getAllCheckChildStatus() {
+    const { childs } = this.props;
+
+    let checkedAll = true;
+
+    if (childs instanceof Array && childs.length) {
+      childs.forEach(item => {
+        if (!item.check) checkedAll = false;
+      });
+
+      return checkedAll;
+    }
+
+    return false;
   }
 
   handleChangeOpenId = () => {
@@ -71,6 +89,34 @@ class Item extends Component {
     if (open) resetOpenId();
   }
 
+  handleCheckAllChilds = () => {
+    const {
+      id,
+      childs,
+      toggleItemChildsCheck,
+    } = this.props;
+    const checkedStatus = !this.getAllCheckChildStatus();
+
+    if (childs instanceof Array && childs.length) {
+      toggleItemChildsCheck(id, checkedStatus);
+    }
+  }
+
+  renderCheckAllChildsBtn() {
+    const checkedAllChilds = this.getAllCheckChildStatus();
+
+    return (
+      <div
+        onClick={this.handleCheckAllChilds}
+        className={classNames(
+          'item__checked-childs-btn', { checked: checkedAllChilds }
+        )}
+      >
+        {checkedAllChilds ? 'Снять выделение' : 'Выделить все'}
+      </div>
+    );
+  }
+
   renderOpenChildBtn() {
     const {
       open,
@@ -91,7 +137,9 @@ class Item extends Component {
     return (
       <div
         onClick={this.handleChangeOpenId}
-        className="item__open-child-btn empty"
+        className={classNames(
+          'item__open-child-btn empty', { open }
+        )}
       >
         {open ? 'Закрыть' : 'Создать'}
       </div>
@@ -146,6 +194,7 @@ class Item extends Component {
             <span>{id}:</span> {title}
           </div>
           {this.renderOpenChildBtn()}
+          {this.renderCheckAllChildsBtn()}
           <div
             className="item__delete"
             onClick={this.handleDeleteItem}
@@ -163,6 +212,7 @@ class Item extends Component {
 const mapDispatchToProps = {
   setOpenId,
   resetOpenId,
+  toggleItemChildsCheck,
   deleteItemAndSetCount,
 };
 

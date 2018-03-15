@@ -58,9 +58,9 @@ export const deleteItem = itemId => ({
 });
 
 
-export const deleteItemChild = (itemId, childId) => ({
+export const deleteItemChild = (parentId, childId) => ({
   type: actionTypes.CATALOG_ITEMS_DELETE_ITEM_CHILD,
-  itemId,
+  parentId,
   childId,
 });
 
@@ -72,11 +72,11 @@ export const createItem = (title, id) => ({
 });
 
 
-export const toggleChildCheck = (itemId, childId, status) => ({
+export const toggleChildCheck = (parentId, childId, status) => ({
   type: actionTypes.CATALOG_ITEMS_TOGGLE_CHILD_CHECK,
   status,
-  itemId,
   childId,
+  parentId,
 });
 
 
@@ -86,6 +86,14 @@ export const createChild = (parentId, title, id) => ({
   title,
   id,
 });
+
+
+const checkItemChilds = (itemId, status) => ({
+  type: actionTypes.CATALOG_ITEMS_TOGGLE_ALL_CHILDS_CHECK,
+  itemId,
+  status,
+});
+
 
 
 export const getItemsList = (params = {}) => dispatch => {
@@ -141,6 +149,14 @@ export const checkedFirstChilds = () => (dispatch, getState) => {
 
 export const deleteItemAndSetCount = id => (dispatch, getState) => {
   dispatch(deleteItem(id));
+
+  const list = getState().items.list;
+  setCheckedCount(list, dispatch);
+};
+
+
+export const toggleItemChildsCheck = (itemId, status) => (dispatch, getState) => {
+  dispatch(checkItemChilds(itemId, status));
 
   const list = getState().items.list;
   setCheckedCount(list, dispatch);

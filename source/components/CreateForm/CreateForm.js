@@ -37,7 +37,7 @@ class CreateForm extends Component {
   }
 
   handleCreateItem = () => {
-    const { titleValue } = this.state;
+    const { titleValue, error } = this.state;
     const {
       list,
       parentId,
@@ -45,6 +45,8 @@ class CreateForm extends Component {
       createChild,
       childPosition,
     } = this.props;
+
+    if (error) this.setState({ error: '' });
 
     if (titleValue && list instanceof Array) {
 
@@ -67,6 +69,7 @@ class CreateForm extends Component {
         );
 
         createChild(parentId, titleValue, newId);
+        this.setState({ titleValue: '' });
       }
 
       else {
@@ -77,27 +80,23 @@ class CreateForm extends Component {
         );
 
         createItem(titleValue, newId);
+        this.setState({ titleValue: '' });
       }
     }
 
     else this.setState({
-      error: 'Вы должны ввести заголовок',
+      error: 'Вы должны ввести название элемента',
     });
   }
 
   renderError() {
-    const {
-      error,
-      titleValue,
-    } = this.state;
+    const { error } = this.state;
 
-    if (typeof titleValue === 'string' && titleValue.trim()) {
-      return (
-        <div className="create-item__form-error">
-          {error}
-        </div>
-      );
-    }
+    if (error) return (
+      <div className="create-item__form-error">
+        {error}
+      </div>
+    );
   }
 
   render() {

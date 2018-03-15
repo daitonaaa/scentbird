@@ -45,14 +45,14 @@ function items(state = initialState, action) {
       return state.deleteIn(['list', indexes.itemIndex]);
 
     case actionTypes.CATALOG_ITEMS_DELETE_ITEM_CHILD:
-      indexes = getIndexes(state, action.itemId, action.childId);
+      indexes = getIndexes(state, action.parentId, action.childId);
 
       return state.deleteIn(
         ['list', indexes.itemIndex, 'childs', indexes.childIndex]
       );
 
     case actionTypes.CATALOG_ITEMS_TOGGLE_CHILD_CHECK:
-      indexes = getIndexes(state, action.itemId, action.childId);
+      indexes = getIndexes(state, action.parentId, action.childId);
 
       return state.setIn(
         ['list', indexes.itemIndex, 'childs', indexes.childIndex, 'check'],
@@ -88,7 +88,7 @@ function items(state = initialState, action) {
         })
       );
 
-    case actionTypes.CATALOG_ITEMS_CREATE_CHILD:
+    case actionTypes.CATALOG_ITEMS_CREATE_CHILD: {
       const itemIndex = state.get('list').findIndex(
         elem => elem.get('id') === action.parentId
       );
@@ -99,6 +99,18 @@ function items(state = initialState, action) {
           title: action.title,
         })
       );
+    }
+
+    case actionTypes.CATALOG_ITEMS_TOGGLE_ALL_CHILDS_CHECK: {
+      const itemIndex = state.get('list').findIndex(
+        elem => elem.get('id') === action.itemId
+      );
+
+      return state.updateIn(
+        ['list', itemIndex, 'childs'],
+        list => list.map(item => item.set('check', action.status))
+      );
+    }
 
     case actionTypes.CATALOG_ITEMS_RESET:
       return initialState;
