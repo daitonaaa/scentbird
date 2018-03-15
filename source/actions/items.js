@@ -2,6 +2,21 @@ import api from 'api/items';
 import * as actionTypes from 'constants/actionTypes';
 
 
+export const toggleCheckFirstChilds = () => ({
+  type: actionTypes.CATALOG_ITEMS_CHECK_CHILDS,
+});
+
+
+export const uncheckAllChilds = () => ({
+  type: actionTypes.CATALOG_ITEMS_UNCHECK_ALL,
+});
+
+
+export const resetOpenId = () => ({
+  type: actionTypes.CATALOG_ITEMS_RESET_OPEN_ID,
+});
+
+
 export const setRequestStatus = status => ({
   type: actionTypes.CATALOG_ITEMS_SET_REQUEST_STATUS,
   status,
@@ -11,11 +26,6 @@ export const setRequestStatus = status => ({
 export const setErrorText = text => ({
   type: actionTypes.CATALOG_ITEMS_SET_ERROR_TEXT,
   text,
-});
-
-
-export const resetError = () => ({
-  type: actionTypes.CATALOG_ITEMS_RESET_TEXT,
 });
 
 
@@ -42,25 +52,6 @@ export const setOpenId = itemId => ({
 });
 
 
-export const resetOpenId = () => ({
-  type: actionTypes.CATALOG_ITEMS_RESET_OPEN_ID,
-});
-
-
-export const toggleChildCheck = (itemId, childId, status) => ({
-  type: actionTypes.CATALOG_ITEMS_TOGGLE_CHILD_CHECK,
-  status,
-  itemId,
-  childId,
-});
-
-
-export const setCheckedFirstBtnStatus = status => ({
-  type: actionTypes.CATALOG_ITEMS_SET_CHECKED_FIRST_BTN_STATUS,
-  status,
-});
-
-
 export const deleteItem = itemId => ({
   type: actionTypes.CATALOG_ITEMS_DELETE_ITEM,
   itemId,
@@ -74,21 +65,18 @@ export const deleteItemChild = (itemId, childId) => ({
 });
 
 
-export const toggleCheckFirstChilds = status => ({
-  type: actionTypes.CATALOG_ITEMS_TOGGLE_CHECK_FIRST_CHILDS,
-  status,
-});
-
-
-export const uncheckAllChilds = () => ({
-  type: actionTypes.CATALOG_ITEMS_UNCHECK_ALL,
-});
-
-
 export const createItem = (title, id) => ({
   type: actionTypes.CATALOG_ITEMS_CREATE_ITEM,
   title,
   id,
+});
+
+
+export const toggleChildCheck = (itemId, childId, status) => ({
+  type: actionTypes.CATALOG_ITEMS_TOGGLE_CHILD_CHECK,
+  status,
+  itemId,
+  childId,
 });
 
 
@@ -113,11 +101,19 @@ export const getItemsList = (params = {}) => dispatch => {
 };
 
 
-export const toggleChildCheckAndSetCount = (itemId, childId, status) => (dispatch, getState) => {
+export const setCheckChildStatus = (
+  itemId, childId, status
+) => (dispatch, getState) => {
   dispatch(toggleChildCheck(itemId, childId, status));
 
-  const list = getState().items.list;
-  setCheckedCount(list, dispatch);
+  const count = getState().items.count;
+
+  if (status) dispatch(changeCount(count + 1));
+  else {
+    dispatch(changeCount(
+      count === 0 ? count : count - 1
+    ));
+  }
 };
 
 
@@ -129,15 +125,14 @@ export const deleteItemChildAndSetCount = (itemId, childId) => (dispatch, getSta
 };
 
 
-export const uncheckAllChildsAndResetCount = () => dispatch => {
+export const uncheckChilds = () => dispatch => {
   dispatch(uncheckAllChilds());
   dispatch(changeCount(0));
 };
 
 
-export const checkedFirstChilds = status => (dispatch, getState) => {
-  dispatch(toggleCheckFirstChilds(status));
-  dispatch(setCheckedFirstBtnStatus(status));
+export const checkedFirstChilds = () => (dispatch, getState) => {
+  dispatch(toggleCheckFirstChilds());
 
   const list = getState().items.list;
   setCheckedCount(list, dispatch);

@@ -5,7 +5,6 @@ import * as actionTypes from 'constants/actionTypes';
 
 
 const initialState = Immutable.fromJS({
-  checkedFirst: false,
   request: false,
   errorText: '',
   openedItem: 0,
@@ -24,12 +23,6 @@ function items(state = initialState, action) {
 
     case actionTypes.CATALOG_ITEMS_SET_ERROR_TEXT:
       return state.set('errorText', action.text);
-
-    case actionTypes.CATALOG_ITEMS_RESET_TEXT:
-      return state.set('errorText', '');
-
-    case actionTypes.CATALOG_ITEMS_SET_CHECKED_FIRST_BTN_STATUS:
-      return state.set('checkedFirst', action.status);
 
     case actionTypes.CATALOG_ITEMS_SET_LIST:
       return state.merge({
@@ -66,11 +59,11 @@ function items(state = initialState, action) {
         action.status
       );
 
-    case actionTypes.CATALOG_ITEMS_TOGGLE_CHECK_FIRST_CHILDS:
+    case actionTypes.CATALOG_ITEMS_CHECK_CHILDS:
       return state.update('list',
         list => list.map(
           item => item.update('childs',
-            list => list.setIn([0, 'check'], action.status)
+            list => list.setIn([0, 'check'], true)
           )
         )
       );

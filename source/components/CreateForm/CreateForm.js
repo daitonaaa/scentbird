@@ -22,14 +22,6 @@ class CreateForm extends Component {
     createChild: PropTypes.func.isRequired,
   };
 
-  static defaultProps = {
-    list: [],
-    childPosition: false,
-
-    createItem: () => {},
-    createChild: () => {},
-  };
-
   state = {
     error: '',
     titleValue: '',

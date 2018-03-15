@@ -28,17 +28,6 @@ class Item extends Component {
     deleteItemAndSetCount: PropTypes.func.isRequired,
   };
 
-  static defaultProps = {
-    id: 0,
-    open: false,
-    title: '',
-    childs: [],
-
-    setOpenId: () => {},
-    resetOpenId: () => {},
-    deleteItemAndSetCount: () => {},
-  };
-
   componentWillReceiveProps(nextProps) {
     const oldChilds = this.props.childs;
     const {
@@ -95,7 +84,7 @@ class Item extends Component {
           'item__open-child-btn', { open }
         )}
       >
-        {`${open ? 'Скрыть' : 'Показать'} дочерние элементы`}
+        {open ? 'Закрыть' : 'Открыть'}
       </div>
     );
 
@@ -104,7 +93,7 @@ class Item extends Component {
         onClick={this.handleChangeOpenId}
         className="item__open-child-btn empty"
       >
-        {open ? 'Скрыть создание элемента' : 'Создать дочерний элемент'}
+        {open ? 'Закрыть' : 'Создать'}
       </div>
     );
   }
@@ -132,8 +121,8 @@ class Item extends Component {
       open,
     } = this.props;
 
-    if (open) return (
-      <div className="item__childs">
+    return (
+      <div className={classNames('item__childs', { open })}>
         {this.renderChilds()}
         <CreateForm
           childPosition
@@ -151,8 +140,8 @@ class Item extends Component {
     } = this.props;
 
     return (
-      <div className="item">
-        <div className={classNames('item-box', { open })}>
+      <div className={classNames('item', { open })}>
+        <div className="item__box">
           <div className="item__title">
             <span>{id}:</span> {title}
           </div>

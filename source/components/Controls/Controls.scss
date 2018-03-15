@@ -1,24 +1,37 @@
 .controls {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
+  margin-bottom: 10px;
+  padding: 15px;
 
-    & div {
-      box-sizing: border-box;
-      margin: 4%;
-      padding: 10px;
-      width: 28%;
-      background: #f1f1f1;
-      font-size: 13px;
-      text-align: center;
-      border: solid 1px #dcdcdc;
-      cursor: pointer;
-      transition: .2s;
+  &__btn {
+    box-sizing: border-box;
+    margin-bottom: 15px;
+    padding: 10px;
+    background: #f1f1f1;
+    font-size: 13px;
+    text-align: center;
+    border: solid 1px #dcdcdc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .2s;
 
-      &:hover {
-        background: #a18aaf;
-        color: #fff;
-        border: solid 1px #a18aaf;
-      }
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &:hover {
+      background: #a18aaf;
+      color: #fff;
+      border: solid 1px #a18aaf;
+    }
+
+    &.reset {
+      background: #de9f9f;
+      color: #fff;
+      border: solid 1px #de9f9f;
+    }
+
+    &.reset:hover {
+      background: #ff6262;
     }
   }
+}

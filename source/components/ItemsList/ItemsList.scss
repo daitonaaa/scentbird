@@ -1,68 +1,35 @@
+@import '~vars.scss';
+
 .items-list {
-  &__error {
-    padding: 10px;
-    background: #ffd4d4;
-    color: #844444;
+  padding: 15px 15px 15px 0;
+
+  &__no-items {
+    padding: 20px;
+    font-family: $mainFontBold;
+    font-size: 18px;
+    color: $accent;
     text-align: center;
   }
 
-  &__header {
-    &-title {
-      padding: 20px 20px 10px;
-      font-size: 18px;
-      color: #000;
-      text-align: center;
+  &__count {
+    margin-bottom: 15px;
+    font-size: 13px;
+    line-height: 40px;
+    color: #d4d4d4;
+    text-align: center;
+    border: solid 1px #f3f3f3;
+    border-radius: 5px;
+    transition: all ease .2s;
+
+    span {
+      font-family: $mainFontBold;
+      font-size: 15px;
     }
 
-    &-hint {
-      padding: 10px;
-      font-size: 13px;
-      color: #777;
-      text-align: center;
-    }
-
-    &-count {
-      margin-bottom: 10px;
-      font-size: 21px;
-      font-weight: 600;
-      color: #d87171;
-      text-align: center;
-    }
-  }
-
-  &__controls {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-
-    & div {
-      box-sizing: border-box;
-      margin: 4%;
-      padding: 10px;
-      width: 28%;
-      background: #f1f1f1;
-      font-size: 13px;
-      text-align: center;
-      border: solid 1px #dcdcdc;
-      cursor: pointer;
-      transition: .2s;
-
-      &:hover {
-        background: #a18aaf;
-        color: #fff;
-        border: solid 1px #a18aaf;
-      }
-    }
-  }
-
-  &__list {
-    &-no-items {
-      padding: 20px;
-      background: #f1f1f1;
-      font-size: 18px;
-      color: #737373;
-      text-align: center;
-      border-top: solid 1px #d2d2d2;
+    &.full {
+      background: #e9ffef;
+      color: #467153;
+      border: solid 1px #89af95;
     }
   }
 }

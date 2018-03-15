@@ -6,8 +6,8 @@ import { connect } from 'react-redux';
 import './Child.scss';
 
 import {
+  setCheckChildStatus,
   deleteItemChildAndSetCount,
-  toggleChildCheckAndSetCount,
 } from 'actions/items';
 
 
@@ -19,18 +19,8 @@ class Child extends Component {
     title: PropTypes.string.isRequired,
     parentId: PropTypes.number.isRequired,
 
+    setCheckChildStatus: PropTypes.func.isRequired,
     deleteItemChildAndSetCount: PropTypes.func.isRequired,
-    toggleChildCheckAndSetCount: PropTypes.func.isRequired,
-  };
-
-  static defaultProps = {
-    id: -1,
-    check: false,
-    title: '',
-    parentId: -1,
-
-    deleteItemChildAndSetCount: () => {},
-    toggleChildCheckAndSetCount: () => {},
   };
 
   handleToggleCheck = () => {
@@ -38,10 +28,10 @@ class Child extends Component {
       id,
       check,
       parentId,
-      toggleChildCheckAndSetCount,
+      setCheckChildStatus,
     } = this.props;
 
-    toggleChildCheckAndSetCount(parentId, id, !check);
+    setCheckChildStatus(parentId, id, !check);
   }
 
   handleDeleteItemChild = () => {
@@ -86,7 +76,7 @@ class Child extends Component {
 
 const mapDispatchToProps = {
   deleteItemChildAndSetCount,
-  toggleChildCheckAndSetCount,
+  setCheckChildStatus,
 };
 
 export default connect(

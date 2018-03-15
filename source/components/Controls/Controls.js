@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { connect } from 'react-redux';
 
 import './Controls.scss';
@@ -8,34 +7,18 @@ import './Controls.scss';
 import {
   resetOpenId,
   getItemsList,
+  uncheckChilds,
   checkedFirstChilds,
-  uncheckAllChildsAndResetCount,
 } from 'actions/items';
 
 
 class Controls extends Component {
 
   static propTypes = {
-    count: PropTypes.number.isRequired,
-    checkedFirst: PropTypes.bool.isRequired,
-
     resetOpenId: PropTypes.func.isRequired,
     getItemsList: PropTypes.func.isRequired,
+    uncheckChilds: PropTypes.func.isRequired,
     checkedFirstChilds: PropTypes.func.isRequired,
-    uncheckAllChildsAndResetCount: PropTypes.func.isRequired,
-  };
-
-  static defaultProps = {
-    list: [],
-    count: 0,
-    request: false,
-    errorText: '',
-    checkedFirst: false,
-
-    resetOpenId: () => {},
-    getItemsList: () => {},
-    checkedFirstChilds: () => {},
-    uncheckAllChildsAndResetCount: () => {}
   };
 
   handleResetList = () => {
@@ -48,50 +31,29 @@ class Controls extends Component {
     getItemsList();
   }
 
-  handleCheckedFirstChilds = () => {
-    const {
-      count,
-      checkedFirst,
-      checkedFirstChilds,
-    } = this.props;
-
-    count === 0
-      ? checkedFirstChilds(true)
-      : checkedFirstChilds(!checkedFirst);
-  }
-
   render() {
     const {
-      count,
-      checkedFirst,
-      uncheckAllChildsAndResetCount,
+      uncheckChilds,
+      checkedFirstChilds,
     } = this.props;
-
-    const active = checkedFirst;
 
     return (
       <div className="controls">
         <div
-          onClick={this.handleCheckedFirstChilds}
-          className={classNames(
-            'controls__checked-first-btn', { active }
-          )}
+          className="controls__btn"
+          onClick={checkedFirstChilds}
         >
-          {
-            checkedFirst && count !== 0
-              ? 'Снять выделение с первых дочерних'
-              : 'Выделить первые дочерние'
-          }
+          Выделить первые дочерние элементы
         </div>
         <div
-          onClick={uncheckAllChildsAndResetCount}
-          className="controls__uncheck"
+          onClick={uncheckChilds}
+          className="controls__btn"
         >
-          Снять выделение с дочерних
+          Снять выделение со всех элементов
         </div>
         <div
           onClick={this.handleResetList}
-          className="controls__reset"
+          className="controls__btn reset"
         >
           Вернуться к изначальным данным
         </div>
@@ -105,7 +67,7 @@ const mapDispatchToProps = {
   resetOpenId,
   getItemsList,
   checkedFirstChilds,
-  uncheckAllChildsAndResetCount,
+  uncheckChilds,
 };
 
 export default connect(

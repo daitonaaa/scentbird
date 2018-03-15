@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { connect } from 'react-redux';
+import classNames from 'classnames';
 
 import './ItemsList.scss';
 
@@ -12,32 +12,26 @@ class ItemsList extends Component {
 
   static propTypes = {
     list: PropTypes.array.isRequired,
-    request: PropTypes.bool.isRequired,
+    count: PropTypes.number.isRequired,
     openedItem: PropTypes.number.isRequired,
-  };
-
-  static defaultProps = {
-    list: [],
-    count: 0,
-    request: false,
-    errorText: '',
-    openedItem: 0,
-    checkedFirst: false,
   };
 
   renderItems() {
     const {
       list,
-      request,
+      count,
       openedItem,
     } = this.props;
 
     return (
-      <div
-        className={classNames(
-          'items-list__list', { 'loading': request }
-        )}
-      >
+      <div className="items-list">
+        <div
+          className={classNames('items-list__count', {
+            full: !!count,
+          })}
+        >
+          Выделено дочерних элементов: <span>{count}</span>
+        </div>
         {list.map(item =>
           <Item
             {...item}
@@ -50,10 +44,7 @@ class ItemsList extends Component {
   }
 
   render() {
-    const {
-      list,
-      request,
-    } = this.props;
+    const { list } = this.props;
 
     if (list instanceof Array && list.length) {
 
@@ -61,12 +52,8 @@ class ItemsList extends Component {
     }
 
     return (
-      <div
-        className={classNames(
-          'items-list__list', { 'loading': request }
-        )}
-      >
-        <div className="items-list__list-no-items">
+      <div className="items-list">
+        <div className="items-list__no-items">
           Элементы не найдены
         </div>
       </div>

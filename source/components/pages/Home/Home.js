@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import React, { Component } from 'react';
@@ -15,17 +16,10 @@ import { getItemsList } from 'actions/items';
 class Home extends Component {
 
   static propTypes = {
-    count: PropTypes.number.isRequired,
+    request: PropTypes.bool.isRequired,
     errorText: PropTypes.string.isRequired,
 
     getItemsList: PropTypes.func.isRequired,
-  };
-
-  static defaultProps = {
-    count: 0,
-    errorText: '',
-
-    getItemsList: () => {}
   };
 
   componentDidMount() {
@@ -45,36 +39,39 @@ class Home extends Component {
   }
 
   renderHeader() {
-    const { count } = this.props;
-
     return (
-      <div className="items-list__header">
-        <div className="items-list__header-title">
-          Пример мини приложения на React.JS
+      <div className="home__header">
+        <div className="home__header-title">
+          Пример mini приложения на <span>React.js</span>
         </div>
-        <div className="items-list__header-hint">
+        <div className="home__header-hint">
           <span>
-            Код можно посмотреть тут -
+            Код приложения можно посмотреть тут:
           </span>
           <a href="https://github.com/Cast0001/code-example" target="_blank">
-            Cast0001
+            GitHub
           </a>
-        </div>
-        <div className="items-list__header-count">
-          {`Выделено дочерних элементов: ${count}`}
         </div>
       </div>
     );
   }
 
   render() {
+    const { request } = this.props;
+
     return (
-      <div className="home">
+      <div className={classNames('home', { request })}>
         <Helmet><title>Пример кода</title></Helmet>
         {this.renderError()}
         {this.renderHeader()}
-        <Controls />
-        <ItemsList />
+        <div className="home__content">
+          <div className="home__content-left">
+            <Controls />
+          </div>
+          <div className="home__content-right">
+            <ItemsList />
+          </div>
+        </div>
         <CreateForm />
       </div>
     );
