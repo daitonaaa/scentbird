@@ -95,6 +95,7 @@ function items(state = initialState, action) {
 
       return state.updateIn(['list', itemIndex, 'childs'],
         list => list.push({
+          check: false,
           id: action.id,
           title: action.title,
         })

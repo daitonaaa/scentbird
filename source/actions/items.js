@@ -88,12 +88,11 @@ export const createChild = (parentId, title, id) => ({
 });
 
 
-const checkItemChilds = (itemId, status) => ({
+export const checkItemChilds = (itemId, status) => ({
   type: actionTypes.CATALOG_ITEMS_TOGGLE_ALL_CHILDS_CHECK,
   itemId,
   status,
 });
-
 
 
 export const getItemsList = (params = {}) => dispatch => {

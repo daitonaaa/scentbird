@@ -13,7 +13,14 @@
     "dev": "set NODE_ENV=development&& babel-node source/server.js",
     "prod": "set NODE_ENV=production&& webpack && babel-node source/server.js",
     "dev-unix": "NODE_ENV=development babel-node source/server.js",
-    "prod-unix": "NODE_ENV=production webpack && babel-node source/server.js"
+    "prod-unix": "NODE_ENV=production webpack && babel-node source/server.js",
+    "test": "jest"
+  },
+  "jest": {
+    "moduleDirectories": [
+      "node_modules",
+      "source"
+    ]
   },
   "browserslist": [
     ">3% in RU"
@@ -53,15 +60,15 @@
     "postcss-loader": "^1.1.1",
     "prepush": "^3.1.11",
     "prop-types": "^15.5.8",
-    "react-addons-test-utils": "^15.6.0",
+    "react-addons-test-utils": "^15.6.2",
     "react-router-redux": "^4.0.8",
-    "react-test-renderer": "^15.6.1",
+    "react-test-renderer": "^15.6.2",
     "redux-devtools": "^3.3.1",
     "redux-devtools-dock-monitor": "^1.1.1",
     "redux-devtools-extension": "^2.13.0",
     "redux-devtools-log-monitor": "^1.1.1",
     "redux-logger": "^2.7.4",
-    "redux-mock-store": "^1.2.3",
+    "redux-mock-store": "^1.5.1",
     "regenerator-runtime": "^0.10.5",
     "sass-loader": "^4.0.2",
     "style-loader": "^0.13.0",
@@ -78,12 +85,14 @@
     "babel-polyfill": "^6.23.0",
     "classnames": "^2.2.5",
     "connect": "^3.6.2",
+    "enzyme": "^3.3.0",
     "es6-promise": "^3.1.2",
     "eslint-plugin-jest": "^20.0.3",
     "express": "^4.15.3",
     "happypack": "^4.0.0-beta.2",
     "immutable": "^3.8.1",
     "isomorphic-fetch": "^2.2.1",
+    "jest": "^22.4.3",
     "jest-cli": "^20.0.4",
     "js-md5": "^0.4.2",
     "marked": "^0.3.6",
