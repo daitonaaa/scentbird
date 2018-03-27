@@ -8,7 +8,7 @@ import './ItemsList.scss';
 import Item from 'components/Item';
 
 
-class ItemsList extends Component {
+export class ItemsList extends Component {
 
   static propTypes = {
     list: PropTypes.array.isRequired,
@@ -16,14 +16,14 @@ class ItemsList extends Component {
     openedItem: PropTypes.number.isRequired,
   };
 
-  renderItems() {
+  render() {
     const {
       list,
       count,
       openedItem,
     } = this.props;
 
-    return (
+    if (list instanceof Array && list.length) return (
       <div className="items-list">
         <div
           className={classNames('items-list__count', {
@@ -41,15 +41,6 @@ class ItemsList extends Component {
         )}
       </div>
     );
-  }
-
-  render() {
-    const { list } = this.props;
-
-    if (list instanceof Array && list.length) {
-
-      return this.renderItems();
-    }
 
     return (
       <div className="items-list">

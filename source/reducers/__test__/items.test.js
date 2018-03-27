@@ -1,4 +1,4 @@
-import reducer from '../items';
+import reducer from 'reducers/items';
 import * as actionTypes from 'constants/actionTypes';
 
 

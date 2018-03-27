@@ -10,13 +10,13 @@ import {
 } from 'actions/items';
 
 
-class CreateForm extends Component {
+export class CreateForm extends Component {
 
   static propTypes = {
     parentId: PropTypes.number, // только если childPosition = true
+    childPosition: PropTypes.bool,
 
     list: PropTypes.array.isRequired,
-    childPosition: PropTypes.bool.isRequired,
 
     createItem: PropTypes.func.isRequired,
     createChild: PropTypes.func.isRequired,

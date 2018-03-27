@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`> > > COMPONENT - ItemsList #create snapshot 1`] = `
+<div
+  className="items-list"
+>
+  <div
+    className="items-list__no-items"
+  >
+    Элементы не найдены
+  </div>
+</div>
+`;

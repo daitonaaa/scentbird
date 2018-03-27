@@ -11,7 +11,7 @@ import {
 } from 'actions/items';
 
 
-class Child extends Component {
+export class Child extends Component {
 
   static propTypes = {
     id: PropTypes.number.isRequired,

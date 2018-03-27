@@ -33,7 +33,7 @@ const plugins = [
 
 export default new Config().extend('config/webpack.base.config.js').merge({
   entry: {
-    app: './client.js'
+    app: ['babel-polyfill', './client.js']
   },
   devtool: 'source-map',
   plugins

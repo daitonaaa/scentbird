@@ -13,7 +13,7 @@ import CreateForm from 'components/CreateForm';
 import { getItemsList } from 'actions/items';
 
 
-class Home extends Component {
+export class Home extends Component {
 
   static propTypes = {
     request: PropTypes.bool.isRequired,
@@ -38,24 +38,6 @@ class Home extends Component {
     }
   }
 
-  renderHeader() {
-    return (
-      <div className="home__header">
-        <div className="home__header-title">
-          Пример mini приложения на <span>React.js</span>
-        </div>
-        <div className="home__header-hint">
-          <span>
-            Код приложения можно посмотреть тут:
-          </span>
-          <a href="https://github.com/Cast0001/code-example" target="_blank">
-            GitHub
-          </a>
-        </div>
-      </div>
-    );
-  }
-
   render() {
     const { request } = this.props;
 
@@ -63,7 +45,19 @@ class Home extends Component {
       <div className={classNames('home', { request })}>
         <Helmet><title>Пример кода</title></Helmet>
         {this.renderError()}
-        {this.renderHeader()}
+        <div className="home__header">
+          <div className="home__header-title">
+            Пример mini приложения на <span>React.js</span>
+          </div>
+          <div className="home__header-hint">
+            <span>
+              Код приложения можно посмотреть тут:
+            </span>
+            <a href="https://github.com/Cast0001/code-example" target="_blank">
+              GitHub
+            </a>
+          </div>
+        </div>
         <div className="home__content">
           <div className="home__content-left">
             <Controls />

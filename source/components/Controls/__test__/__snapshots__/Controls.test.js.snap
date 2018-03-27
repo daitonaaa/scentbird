@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`> > > COMPONENT - Controls #create snapshot 1`] = `
+<div
+  className="controls"
+>
+  <div
+    className="controls__btn"
+    onClick={[Function]}
+  >
+    Выделить первые дочерние элементы
+  </div>
+  <div
+    className="controls__btn"
+    onClick={[Function]}
+  >
+    Снять выделение со всех элементов
+  </div>
+  <div
+    className="controls__btn reset"
+    onClick={[Function]}
+  >
+    Вернуться к изначальным данным
+  </div>
+</div>
+`;

@@ -12,7 +12,7 @@ import {
 } from 'actions/items';
 
 
-class Controls extends Component {
+export class Controls extends Component {
 
   static propTypes = {
     resetOpenId: PropTypes.func.isRequired,

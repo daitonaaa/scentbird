@@ -16,7 +16,7 @@ import {
 } from 'actions/items';
 
 
-class Item extends Component {
+export class Item extends Component {
 
   static propTypes = {
     id: PropTypes.number.isRequired,
@@ -102,21 +102,6 @@ class Item extends Component {
     }
   }
 
-  renderCheckAllChildsBtn() {
-    const checkedAllChilds = this.getAllCheckChildStatus();
-
-    return (
-      <div
-        onClick={this.handleCheckAllChilds}
-        className={classNames(
-          'item__checked-childs-btn', { checked: checkedAllChilds }
-        )}
-      >
-        {checkedAllChilds ? 'Снять выделение' : 'Выделить все'}
-      </div>
-    );
-  }
-
   renderOpenChildBtn() {
     const {
       open,
@@ -163,29 +148,13 @@ class Item extends Component {
     }
   }
 
-  renderOpenedItem() {
-    const {
-      id,
-      open,
-    } = this.props;
-
-    return (
-      <div className={classNames('item__childs', { open })}>
-        {this.renderChilds()}
-        <CreateForm
-          childPosition
-          parentId={id}
-        />
-      </div>
-    );
-  }
-
   render() {
     const {
       id,
       open,
       title,
     } = this.props;
+    const checkedAllChilds = this.getAllCheckChildStatus();
 
     return (
       <div className={classNames('item', { open })}>
@@ -194,7 +163,14 @@ class Item extends Component {
             <span>{id}:</span> {title}
           </div>
           {this.renderOpenChildBtn()}
-          {this.renderCheckAllChildsBtn()}
+          <div
+            onClick={this.handleCheckAllChilds}
+            className={classNames(
+              'item__checked-childs-btn', { checked: checkedAllChilds }
+            )}
+          >
+            {checkedAllChilds ? 'Снять выделение' : 'Выделить все'}
+          </div>
           <div
             className="item__delete"
             onClick={this.handleDeleteItem}
@@ -202,7 +178,13 @@ class Item extends Component {
             Удалить
           </div>
         </div>
-        {this.renderOpenedItem()}
+        <div className={classNames('item__childs', { open })}>
+          {this.renderChilds()}
+          <CreateForm
+            childPosition
+            parentId={id}
+          />
+        </div>
       </div>
     );
   }

@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`> > > COMPONENT - Home #create snapshot 1`] = `
+<div
+  className="home"
+>
+  <HelmetWrapper
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Пример кода
+    </title>
+  </HelmetWrapper>
+  <div
+    className="home__header"
+  >
+    <div
+      className="home__header-title"
+    >
+      Пример mini приложения на 
+      <span>
+        React.js
+      </span>
+    </div>
+    <div
+      className="home__header-hint"
+    >
+      <span>
+        Код приложения можно посмотреть тут:
+      </span>
+      <a
+        href="https://github.com/Cast0001/code-example"
+        target="_blank"
+      >
+        GitHub
+      </a>
+    </div>
+  </div>
+  <div
+    className="home__content"
+  >
+    <div
+      className="home__content-left"
+    >
+      <Connect(Controls) />
+    </div>
+    <div
+      className="home__content-right"
+    >
+      <Connect(ItemsList) />
+    </div>
+  </div>
+  <Connect(CreateForm) />
+</div>
+`;
