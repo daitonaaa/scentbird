@@ -5,13 +5,13 @@ exports[`> > > COMPONENT - Controls #create snapshot 1`] = `
   className="controls"
 >
   <div
-    className="controls__btn"
+    className="controls__btn check-first"
     onClick={[Function]}
   >
     Выделить первые дочерние элементы
   </div>
   <div
-    className="controls__btn"
+    className="controls__btn uncheck"
     onClick={[Function]}
   >
     Снять выделение со всех элементов

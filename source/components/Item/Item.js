@@ -137,7 +137,7 @@ export class Item extends Component {
       childs,
     } = this.props;
 
-    if (childs instanceof Array) {
+    if (childs instanceof Array && childs.length) {
       return childs.map(item =>
         <Child
           {...item}

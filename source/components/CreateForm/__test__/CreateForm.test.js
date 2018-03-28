@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
 import { CreateForm } from 'components/CreateForm/CreateForm';
 
@@ -10,8 +10,8 @@ Enzyme.configure({ adapter: new Adapter() });
 
 const defaultProps = {
   list: [],
-  createItem: ()=>{},
-  createChild: ()=>{},
+  createItem: jest.fn(),
+  createChild: jest.fn(),
 };
 
 
@@ -50,7 +50,7 @@ describe('> > > COMPONENT - CreateForm', () => {
     defaultProps.list = [
       { id: 1 }, { id: 2 },
     ];
-    const output = shallow(
+    const output = mount(
       <CreateForm {...defaultProps} />
     );
 
@@ -58,9 +58,9 @@ describe('> > > COMPONENT - CreateForm', () => {
       'change', { target: { value: 'title' } }
     );
     expect(output.find('.create-item__form-input').prop('value')).toBe('title');
-
     output.find('.create-item__form-add').simulate('click');
     expect(output.state('titleValue')).toBe('');
+    expect(output.prop('createItem').mock.calls.length).toBe(1);
   });
 
   it('#test method: handleCreateItem => success create Child', () => {
@@ -70,7 +70,7 @@ describe('> > > COMPONENT - CreateForm', () => {
         { id: 1 }
       ] },
     ];
-    const output = shallow(
+    const output = mount(
       <CreateForm parentId={2} childPosition {...defaultProps} />
     );
 
@@ -79,5 +79,6 @@ describe('> > > COMPONENT - CreateForm', () => {
     );
     output.find('.create-item__form-add').simulate('click');
     expect(output.state('titleValue')).toBe('');
+    expect(output.prop('createChild').mock.calls.length).toBe(1);
   });
 });

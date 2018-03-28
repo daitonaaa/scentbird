@@ -14,8 +14,8 @@ const defaultProps = {
   title: 'something',
   parentId: 1,
 
-  setCheckChildStatus: ()=>{},
-  deleteItemChildAndSetCount: ()=>{},
+  setCheckChildStatus: jest.fn(),
+  deleteItemChildAndSetCount: jest.fn(),
 };
 
 
@@ -46,6 +46,7 @@ describe('> > > COMPONENT - Child', () => {
     wrapper.forceUpdate();
     output.find('.child__delete-btn').simulate('click');
     expect(spy).toHaveBeenCalled();
+    expect(output.prop('deleteItemChildAndSetCount').mock.calls.length).toBe(1);
   });
 
   it('#test method: handleToggleCheck => toggle check status', () => {
@@ -58,5 +59,6 @@ describe('> > > COMPONENT - Child', () => {
     wrapper.forceUpdate();
     output.find('.child__check-btn').simulate('click');
     expect(spy).toHaveBeenCalled();
+    expect(output.prop('setCheckChildStatus').mock.calls.length).toBe(1);
   });
 });

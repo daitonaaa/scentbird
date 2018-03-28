@@ -40,14 +40,14 @@ export class Controls extends Component {
     return (
       <div className="controls">
         <div
-          className="controls__btn"
+          className="controls__btn check-first"
           onClick={checkedFirstChilds}
         >
           Выделить первые дочерние элементы
         </div>
         <div
           onClick={uncheckChilds}
-          className="controls__btn"
+          className="controls__btn uncheck"
         >
           Снять выделение со всех элементов
         </div>
