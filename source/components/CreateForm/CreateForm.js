@@ -37,7 +37,7 @@ export class CreateForm extends Component {
   }
 
   handleCreateItem = () => {
-    const { titleValue, error } = this.state;
+    const { titleValue } = this.state;
     const {
       list,
       parentId,
@@ -45,8 +45,6 @@ export class CreateForm extends Component {
       createChild,
       childPosition,
     } = this.props;
-
-    if (error) this.setState({ error: '' });
 
     if (titleValue && list instanceof Array) {
 
@@ -69,7 +67,10 @@ export class CreateForm extends Component {
         );
 
         createChild(parentId, titleValue, newId);
-        this.setState({ titleValue: '' });
+        this.setState({
+          titleValue: '',
+          error: '',
+        });
       }
 
       else {
@@ -80,7 +81,10 @@ export class CreateForm extends Component {
         );
 
         createItem(titleValue, newId);
-        this.setState({ titleValue: '' });
+        this.setState({
+          titleValue: '',
+          error: '',
+        });
       }
     }
 

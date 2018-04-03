@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
+import React, { Component } from 'react';
 
 import './Item.scss';
 
@@ -39,6 +39,7 @@ export class Item extends Component {
     } = nextProps;
 
     if (!Array.isArray(childs) || !Array.isArray(oldChilds)) {
+
       return;
     }
 
@@ -85,7 +86,6 @@ export class Item extends Component {
     } = this.props;
 
     deleteItemAndSetCount(id);
-
     if (open) resetOpenId();
   }
 

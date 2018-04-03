@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import classNames from 'classnames';
+import { connect } from 'react-redux';
+import React, { Component } from 'react';
 
 import './ItemsList.scss';
 
@@ -23,12 +23,12 @@ export class ItemsList extends Component {
       openedItem,
     } = this.props;
 
+    const full = !!count;
+
     if (list instanceof Array && list.length) return (
       <div className="items-list">
         <div
-          className={classNames('items-list__count', {
-            full: !!count,
-          })}
+          className={classNames('items-list__count', { full })}
         >
           Выделено дочерних элементов: <span>{count}</span>
         </div>

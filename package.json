@@ -17,7 +17,9 @@
     "test": "jest"
   },
   "jest": {
-    "setupFiles": ["<rootDir>/jest-setup.js"],
+    "setupFiles": [
+      "<rootDir>/jest-setup.js"
+    ],
     "moduleDirectories": [
       "node_modules",
       "source"
@@ -106,9 +108,9 @@
     "parse-link-header": "^1.0.0",
     "path": "^0.12.7",
     "progress-bar-webpack-plugin": "^1.10.0",
-    "react": "^16.2.0",
+    "react": "^16.3.0",
     "react-click-outside": "^2.3.1",
-    "react-dom": "^16.2.0",
+    "react-dom": "^16.3.0",
     "react-helmet": "^5.1.3",
     "react-hot-loader": "^3.0.0-beta.7",
     "react-modal": "^2.2.1",

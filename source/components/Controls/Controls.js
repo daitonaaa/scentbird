@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import React, { Component } from 'react';
 
 import './Controls.scss';
 
@@ -38,7 +38,7 @@ export class Controls extends Component {
     } = this.props;
 
     return (
-      <div className="controls">
+      <div className="controls" ref={this.inputRef}>
         <div
           className="controls__btn check-first"
           onClick={checkedFirstChilds}

@@ -100,7 +100,9 @@ export const getItemsList = (params = {}) => dispatch => {
   dispatch(setRequestStatus(true));
 
   return api.getItemsList(params).then(
-    response => dispatch(setItemsList(response)),
+    response => dispatch(
+      setItemsList(setCheckedStatus(response))
+    ),
     error => dispatch(setErrorText(
       'Ошибка на сервере! Но такого не может быть, ведь сервера то и нет!'
     ))
@@ -163,6 +165,21 @@ export const toggleItemChildsCheck = (itemId, status) => (dispatch, getState) =>
 
 
 // helpers
+const setCheckedStatus = items => {
+  if (items instanceof Array) {
+    items.forEach((item, itemIndex) => {
+
+      if (item.childs instanceof Array) {
+        item.childs.forEach((child, childIndex) => {
+          items[itemIndex].childs[childIndex].check = false;
+        });
+      }
+    });
+  }
+
+  return items;
+};
+
 const setCheckedCount = (list, dispatch) => {
   let count = 0;
 
