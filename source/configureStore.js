@@ -1,9 +1,12 @@
 import rootReducer from 'reducers';
 import thunkMiddleware from 'redux-thunk';
-import { browserHistory } from 'react-router';
 import { createStore, applyMiddleware } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
+import createBrowserHistory  from 'history/createBrowserHistory';
 import { composeWithDevTools } from 'redux-devtools-extension';
+
+const history = createBrowserHistory();
+const middleware = routerMiddleware(history);
 
 // Формируем главное хранилище
 export default function configureStore(initialState = {}) {
@@ -12,7 +15,7 @@ export default function configureStore(initialState = {}) {
     initialState,
     devTools(
       applyMiddleware(
-        routerMiddleware(browserHistory),
+        middleware,
         thunkMiddleware
       )
     )

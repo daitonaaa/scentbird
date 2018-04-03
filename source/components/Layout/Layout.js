@@ -1,22 +1,21 @@
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React from 'react';
+import { Switch, Route } from 'react-router-dom';
 
 import './Layout.scss';
+import url from 'urls';
+
+import { Home, Error404 } from 'components/pages';
 
 
-export default class Layout extends Component {
+const Layout = () => (
+  <div className="layout">
+    <div className="content">
+      <Switch>
+        <Route exact path={url.index} component={Home} />
+        <Route component={Error404} />
+      </Switch>
+    </div>
+  </div>
+);
 
-  static propTypes = {
-    children: PropTypes.element.isRequired
-  };
-
-  render() {
-    return (
-      <div className="layout">
-        <div className="content">
-          {this.props.children}
-        </div>
-      </div>
-    );
-  }
-}
+export default Layout;
