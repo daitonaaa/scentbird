@@ -6,7 +6,14 @@ import * as actionTypes from 'constants/actionTypes';
 
 const initialState = Immutable.fromJS({
   loading: false,
-  // ...
+  imageUrl: '',
+  tax: 0,
+  credit: 0,
+  balance: 0,
+  discount: 0,
+  shipping: 0,
+  subscription: 0,
+  total: 0, // по уму бы на фронте посчитать, но не ясен алгоритм
 });
 
 

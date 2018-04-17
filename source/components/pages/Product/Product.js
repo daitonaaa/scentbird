@@ -1,55 +1,52 @@
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import React, { Component } from 'react';
 
-import { Input } from 'components/common';
+import { getProductInfo } from 'actions/productInfo';
+
+import ProductInfo from 'components/ProductInfo';
+import PaymentForm from 'components/PaymentForm';
+
+import styles from './Product.scss';
 
 
-export class Home extends Component {
+export class Product extends Component {
 
   static propTypes = {
-    request: PropTypes.bool.isRequired,
-
-    // getItemsList: PropTypes.func.isRequired,
+    getProductInfo: PropTypes.func.isRequired,
   };
 
-  state = {
-    value: ''
-  }
-
   componentDidMount() {
-
+    this.props.getProductInfo();
   }
 
   render() {
-    const { request } = this.props;
-
     return (
-      <div className={classNames('home', { request })}>
-        <Helmet><title>Пример кода</title></Helmet>
-        <Input
-          title="Тестовый инпут"
-          error="error text"
-          value={this.state.value}
-          onChange={value => this.setState({ value })}
-        />
+      <div className={styles.product}>
+        <Helmet>
+          <title>MONTH-TO-MONTH SUBSCRIPTION</title>
+        </Helmet>
+        <div className={styles.productInfo}>
+          <ProductInfo />
+          <div className={styles.productInfoBottom}>
+            <img src="http://test2.ortuna.ru/leftBg.jpg" alt="image" />
+            You will receive an email confirmation when recipient accepts your gift. 
+            Scentbird ships between the 15th and the 18th of every month. Recipient 
+            will receive an email confirmation of shipment every month. Please allow 
+            5-7 days for delivery.
+          </div>
+        </div>
+        <div className={styles.productPayment}>
+          <PaymentForm />
+        </div>
       </div>
     );
   }
 }
 
 
-const mapStateToProps = state => ({
-  ...state.items,
-});
-
-const mapDispatchToProps = {
-
-};
-
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Home);
+  () => ({}), 
+  { getProductInfo }
+)(Product);

@@ -2,21 +2,44 @@
 
 .input {
   position: relative;
+  width: 100%;
   border: solid 1px white;
+  cursor: pointer;
+  transition: .2s;
 
   &-title {
     position: absolute;
     content: attr(data-title);
     top: 0;
     left: 0;
+    padding-left: 10px;
     width: 100%;
     height: 100%;
+    font-size: 18px;
+    line-height: 60px;
+    color: #9b9a9b;
+    cursor: pointer;
+    transition: .2s;
   }
 
   &-form {
-    padding: 10px 10px 10px 5px;
+    padding: 18px 18px 18px 10px;
     width: 100%;
-    border: solid 1px #e8e8e8;
+    background: #fafafa;
+    font-family: $mainFontBold;
+    font-size: 18px;
+    color: black;
+    border: solid 1px $border;
+    outline: none;
+    transition: .1s;
+
+    &:focus { outline: none; }
+  }
+
+  &.white &-form { background: white; }
+
+  &:hover &-form {
+    border-color: darken($border, 10%);
   }
 
   &.error {
@@ -28,6 +51,51 @@
 
     &:after {
       content: attr(data-error);
+    }
+  }
+
+  &.open &-form {
+    border-color: $accent;
+    background: white;
+  }
+
+  &.open &-title {
+    position: absolute;
+    top: -12px;
+    left: 10px;
+    padding: 5px 10px;
+    width: auto;
+    height: auto;
+    background: white;
+    font-size: 14px;
+    line-height: 100%;
+  }
+
+  &.success {
+
+    .input-title { display: none; }
+
+    &:before,
+    &:after {
+      position: absolute;
+      content: '';
+      width: 10px;
+      height: 4px;
+      background: $accent;
+    }
+
+    &:before {
+      top: 29px;
+      right: 15px;
+      width: 12px;
+      transform: rotate(-45deg);
+    }
+
+    &:after {
+      top: 31px;
+      right: 22px;
+      width: 8px;
+      transform: rotate(-135deg);
     }
   }
 }

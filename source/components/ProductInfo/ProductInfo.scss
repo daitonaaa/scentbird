@@ -1,0 +1,61 @@
+@import '~vars.scss';
+
+.box {
+  position: relative;
+  border: solid 1px $border;
+}
+
+.info {
+  position: relative;
+  padding: 0 30px;
+
+  &-box {
+    padding: 5px 0;
+    border-top: solid 1px $border;
+    border-bottom: solid 1px $border;
+  }
+}
+
+.image {
+  position: relative;
+  display: flex;
+  padding: 35px;
+  cursor: pointer;
+  transition: .2s;
+
+  &:hover { opacity: .8; }
+
+  img {
+    margin: auto;
+    max-width: 390px;
+    max-height: 360px;
+  }
+}
+
+.row {
+  display: flex;
+  margin: 15px 0;
+  justify-content: space-between;
+
+  &-total {
+    padding: 0 30px;
+    font-size: 16px;
+
+    span { text-transform: uppercase; }
+  }
+}
+
+.col {
+  font-size: 14px;
+
+  &:first-child { max-width: 60%; }
+
+  &:last-child { max-width: 40%; }
+
+  &-pink { color: $accent; }
+}
+
+.coupon {
+  padding: 15px 30px 45px;
+  font-size: 16px;
+}

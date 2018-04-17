@@ -15,13 +15,13 @@ const initialState = Immutable.fromJS({
     // block - Shipping address
     firstName: '',
     lastName: '',
-    phone: '',
     shippingStreet: '',
     shippingApt: '',
     shippingPostCode: '',
     shippingCity: '',
     shippingRegion: '',
     shippingCountry: '',
+    phone: '',
     // block - Billing address
     billingStreet: '',
     billingApt: '',

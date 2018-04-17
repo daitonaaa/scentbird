@@ -10,6 +10,7 @@ var cx = classNames.bind(styles);
 class Input extends Component {
 
   static propTypes = {
+    white: PropTypes.bool, 
     type: PropTypes.string,
     name: PropTypes.string,
     title: PropTypes.string,
@@ -36,18 +37,19 @@ class Input extends Component {
     title: '',
   };
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (prevState.open && !nextProps.value) {
-      return false;
-    }
+  // static getDerivedStateFromProps(nextProps, prevState) {
+  //   if (prevState.open && !nextProps.value) {
+  //     return false;
+  //   }
 
-    else if (!prevState.open && nextProps.value) {
-      return true;
-    }
-  }
+  //   else if (!prevState.open && nextProps.value) {
+  //     return true;
+  //   }
+  // }
 
   state = {
     open: false,
+    success: false,
   }
 
   componentDidMount() {
@@ -67,18 +69,23 @@ class Input extends Component {
   }
 
   handleOpenInput = () => {
-    const { disabled } = this.props;
+    const { disabled, value } = this.props;
 
-    if (!disabled) {
-      this.setState({ open: true });
-      this.input.current.focus();
-    }
+    if (disabled) return;
+
+    value 
+      ? this.setState({ open: false, success: true })
+      : this.setState({ open: true, success: false });
+    
+    this.input.current.focus();
   }
 
   handleCloseInput = () => {
-    const value = this.input.current.value.trim();
+    const value = this.props.value.trim();
 
-    if (!value) this.setState({ open: false });
+    value 
+      ? this.setState({ open: false, success: true })
+      : this.setState({ open: false, success: false });
   }
 
   render() {
@@ -87,18 +94,21 @@ class Input extends Component {
       value,
       title,
       error,
+      white,
       pattern,
       disabled,
       autoFocus,
       defaultValue,
     } = this.props;
-    const { open } = this.state;
+    const { open, success } = this.state;
 
     return (
       <div
         data-error={error !== true && error}
         className={cx('input', {
           open,
+          white,
+          success,
           disabled,
           error: !!error
         })}
