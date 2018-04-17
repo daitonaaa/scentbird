@@ -13,7 +13,6 @@
     "document": true
   },
   "parser": "babel-eslint",
-  "installedESLint": true,
   "parserOptions": {
     "ecmaFeatures": {
       "experimentalObjectRestSpread": true,
@@ -29,7 +28,7 @@
   "settings": {
     "react": {
       "pragma": "React",
-      "version": "15.0"
+      "version": "16.0"
     }
   },
   "rules": {

@@ -1,4 +1,4 @@
-import Home from './Home';
-import Error404 from './Error404';
+import Product from './Product';
+// other pages ...
 
-export { Home, Error404 };
+export { Product };

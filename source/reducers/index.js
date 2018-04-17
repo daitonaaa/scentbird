@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 
-import items from './items';
+import paymentForm from './paymentForm';
+import productInfo from './productInfo';
 
 export const reducers = {
-  items
+  paymentForm,
+  productInfo,
 };
 
 const rootReducer = combineReducers({

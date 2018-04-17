@@ -46,7 +46,7 @@ const plugins = [
 
   // Формирует CSS
   new ExtractTextPlugin({
-    filename: 'app.css',
+    filename: 'styles.css',
     allChunks: true,
 
     // Убираем в режиме dev, чтоб работал HMR с scss
@@ -76,10 +76,12 @@ const rules = [
 
   {
     test: /\.scss$/,
-    loader: ExtractTextPlugin.extract({
-      fallback: 'style-loader',
-      use: 'css-loader?sourceMap!postcss-loader?sourceMap!sass-loader?sourceMap'
-    })
+    loaders: [
+      'style-loader',
+      'css-loader?modules&camelCase&importLoaders=1&localIdentName=[name]-[local]__[hash:base64:5]',
+      'resolve-url-loader',
+      'sass-loader'
+    ]
   }
 ];
 
