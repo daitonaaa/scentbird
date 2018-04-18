@@ -113,7 +113,6 @@
     "declaration-colon-space-after": "always",
     "declaration-colon-space-before": "never",
     "declaration-empty-line-before": "never",
-    "declaration-no-important": true,
     "declaration-block-no-duplicate-properties": true,
     "declaration-block-no-redundant-longhand-properties": true,
     "declaration-block-semicolon-newline-after": "always",

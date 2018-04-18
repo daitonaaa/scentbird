@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import React, { Component } from 'react';
 
 import styles from './Select.scss';
-var cx = classNames.bind(styles);
+const cx = classNames.bind(styles);
 
 
 class Option extends Component {
@@ -35,7 +35,7 @@ class Option extends Component {
     return(
       <div
         onClick={this.handleClick}
-        className={cx('select-option', { active })}
+        className={cx(styles.selectOption, { active })}
       >
         {label}
       </div>

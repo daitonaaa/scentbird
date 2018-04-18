@@ -70,10 +70,6 @@ export class PaymentForm extends Component {
 
     return (
       <Fragment>
-        <div className={styles.head}>
-          <h1>MONTH-TO-MONTH SUBSCRIPTION</h1>
-          <span>Billed monthly. Renews automatically, cancel any time. Free shipping.</span>
-        </div>
         <CreateAccount {...prop} />
         <ShippingAddress {...prop} />
         <div className={styles.rowBlock}>
@@ -93,12 +89,12 @@ export class PaymentForm extends Component {
         {this.renderBillingAddress()}
         <CreditCard {...prop} />
         <div className={styles.bottom}>
-          <Link to={url.product} className="button-white">
+          <Link to={url.product}>
             Back
           </Link>
           <div
             onClick={submitPaymentForm}
-            className="button-pink button-pink-arrow"
+            className={styles.bottomBtn}
           >
             buy now
           </div>

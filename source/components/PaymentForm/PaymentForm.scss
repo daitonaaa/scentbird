@@ -1,19 +1,5 @@
 @import '~vars.scss';
 
-.head {
-  margin-bottom: 50px;
-
-  h1 {
-    margin-bottom: 5px;
-    font-size: 36px;
-  }
-
-  span {
-    font-size: 16px;
-    color: $accent;
-  }
-}
-
 .title {
   margin-bottom: 15px;
   font-family: $mainFontBold;
@@ -56,4 +42,228 @@
 .col66 {
   padding-right: 10px;
   width: 66.666%;
+}
+
+.card {
+  &-box {
+    padding: 20px;
+    background: #fafafa;
+    border: solid 1px $border;
+  }
+
+  &-top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  &-icons {
+    position: relative;
+    height: 40px;
+
+    &:before {
+      position: absolute;
+      content: '';
+      top: calc(50% - 11px);
+      right: 0;
+      width: 145px;
+      height: 22px;
+      background: url('http://test2.ortuna.ru/cards.png') no-repeat;
+    }
+  }
+
+  &-safe {
+    position: relative;
+    padding-left: 40px;
+    line-height: 40px;
+    color: #7eba2c;
+    text-transform: uppercase;
+
+    &:before {
+      position: absolute;
+      content: '';
+      top: calc(50% - 17.5px);
+      left: 0;
+      width: 29px;
+      height: 35px;
+      background: url('http://test2.ortuna.ru/shield.png') no-repeat;
+    }
+  }
+
+  &-flex {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &-number {
+    padding-right: 10px;
+    width: 66.666%;
+    float: left;
+  }
+
+  &-dates {
+    padding-top: 20px;
+    width: 66.666%;
+    float: left;
+  }
+
+  &-date {
+    float: left;
+    padding: 0 10px;
+    width: calc(100% / 3);
+
+    &:first-child { padding: 0 10px 0 0; }
+    &:last-child { padding: 0 0 0 10px; }
+
+    span {
+      font-size: 18px;
+      line-height: 60px;
+      color: #9b9a9b;
+    }
+  }
+
+  &-security {
+    position: relative;
+    padding: 0 35px 0 10px;
+    float: right;
+    width: calc(100% / 3);
+  }
+
+  &-help {
+    position: absolute;
+    top: calc(50% - 10px);
+    right: 0;
+    width: 20px;
+    height: 20px;
+    background: black;
+    font-family: $mainFontBold;
+    line-height: 20px;
+    color: white;
+    text-align: center;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: .1s;
+
+    &:hover { background: #444; }
+  }
+}
+
+.bottom {
+  padding-top: 20px;
+  text-align: right;
+
+  a {
+    display: inline-block;
+    margin-right: 30px;
+    font-size: 18px;
+    line-height: 60px;
+    color: #9b9a9b;
+    text-decoration: none;
+
+    &:hover { text-decoration: underline; }
+  }
+
+  &-btn {
+    position: relative;
+    display: inline-block;
+    padding: 0 80px;
+    background: $accent;
+    font-size: 18px;
+    line-height: 60px;
+    color: white;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: .2s;
+
+    &:hover {
+      background: lighten($accent, 10%);
+    }
+
+    &:before {
+      position: absolute;
+      content: '';
+      top: calc(50% - 8.5px);
+      right: 30px;
+      width: 22px;
+      height: 17px;
+      background: url('http://test2.ortuna.ru/arrow.png') no-repeat;
+    }
+  }
+}
+
+@media only screen and (max-width: $tabletsSmall) {
+  .title {
+    margin-top: 40px;
+    font-size: 20px;
+  }
+
+  .row {
+    display: block;
+
+    span { display: none; }
+  }
+
+  .col50, .col25, .col33, .col66 {
+    margin-bottom: 20px;
+    padding: 0;
+    width: 100%;
+
+    &:first-child { padding: 0; }
+    &:last-child { padding: 0; }
+  }
+
+  .card {
+    &-box {
+      margin: 0 -20px;
+      border-right: none;
+      border-left: none;
+    }
+
+    &-number {
+      order: -1;
+      padding-right: 0;
+      width: 100%;
+      float: none;
+    }
+
+    &-dates {
+      order: 1;
+      padding-top: 20px;
+      width: 100%;
+      float: none;
+    }
+
+    &-date {
+      width: 50%;
+
+      &-right { padding: 0; }
+
+      &:last-child { display: none; }
+    }
+
+    &-security {
+      order: 2;
+      margin-top: 20px;
+      padding: 0 35px 0 0;
+      float: none;
+      width: 60%;
+    }
+  }
+}
+
+@media only screen and (max-width: $mobiles) {
+  .card {
+    &-top {
+      display: block;
+    }
+
+    &-icons {
+      margin-top: 20px;
+
+      &:before {
+        right: auto;
+        left: 0;
+      }
+    }
+  }
 }

@@ -5,7 +5,7 @@ import classNames from 'classnames/bind';
 import React, { Component } from 'react';
 
 import styles from './Input.scss';
-var cx = classNames.bind(styles);
+const cx = classNames.bind(styles);
 
 
 class Input extends Component {

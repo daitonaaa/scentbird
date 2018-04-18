@@ -68,17 +68,16 @@ class CreditCard extends Component {
           Secure credit card payment
         </div>
         <div className={styles.cardBox}>
-          <div className={styles.row}>
-            <div className={styles.safeHint}>
+          <div className={styles.cardTop}>
+            <div className={styles.cardSafe}>
               128-bit encryption you're safe
             </div>
-            <div className={styles.cardIcons}>
-              картинки
-            </div>
+            <div className={styles.cardIcons} />
           </div>
-          <div className={styles.row}>
-            <div className={styles.col66}>
+          <div className={styles.cardFlex}>
+            <div className={styles.cardNumber}>
               <Input
+                white
                 name="creditCard"
                 value={creditCard}
                 title="Credit card number"
@@ -89,8 +88,9 @@ class CreditCard extends Component {
                 icon={<div className={styles.cardNumberIcon} />}
               />
             </div>
-            <div className={styles.col33}>
+            <div className={styles.cardSecurity}>
               <Input
+                white
                 name="securityCode"
                 value={securityCode}
                 title="Security code"
@@ -98,41 +98,44 @@ class CreditCard extends Component {
                 onChange={changePaymentFormData}
                 onValidate={this.handleSecurityCodeValidate}
               />
+              <div className={styles.cardHelp}>
+                ?
+              </div>
             </div>
-          </div>
-          <div className={styles.row}>
-            <div className={styles.col25}>
-              <Select
-                options={[
-                  { value: 5, label: '05' },
-                  { value: 6, label: '06' },
-                  { value: 7, label: '07' },
-                ]}
-                name="month"
-                value={month}
-                title="Month"
-                error={errors.month}
-                onChange={changePaymentFormData}
-                onValidate={onValidateRequiredField}
-              />
-            </div>
-            <div className={styles.col25}>
-              <Select
-                options={[
-                  { value: 18, label: '18' },
-                  { value: 19, label: '19' },
-                  { value: 20, label: '20' },
-                ]}
-                name="year"
-                value={year}
-                title="Year"
-                error={errors.year}
-                onChange={changePaymentFormData}
-                onValidate={onValidateRequiredField}
-              />
-            </div>
-            <div className={styles.col25}>
-              Exp.
+            <div className={styles.cardDates}>
+              <div className={styles.cardDate}>
+                <Select
+                  white
+                  options={[
+                    { value: 5, label: '05' },
+                    { value: 6, label: '06' },
+                  ]}
+                  name="month"
+                  value={month}
+                  title="Month"
+                  error={errors.month}
+                  onChange={changePaymentFormData}
+                  onValidate={onValidateRequiredField}
+                />
+              </div>
+              <div className={`${styles.cardDate} ${styles.cardDateRight}`}>
+                <Select
+                  white
+                  options={[
+                    { value: 18, label: '18' },
+                    { value: 19, label: '19' },
+                  ]}
+                  name="year"
+                  value={year}
+                  title="Year"
+                  error={errors.year}
+                  onChange={changePaymentFormData}
+                  onValidate={onValidateRequiredField}
+                />
+              </div>
+              <div className={styles.cardDate}>
+                <span>Exp.</span>
+              </div>
             </div>
           </div>
         </div>

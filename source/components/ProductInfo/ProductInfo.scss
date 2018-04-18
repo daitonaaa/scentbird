@@ -19,7 +19,7 @@
 .image {
   position: relative;
   display: flex;
-  padding: 35px;
+  padding: 30px;
   cursor: pointer;
   transition: .2s;
 
@@ -38,7 +38,6 @@
   justify-content: space-between;
 
   &-total {
-    padding: 0 30px;
     font-size: 16px;
 
     span { text-transform: uppercase; }
@@ -56,6 +55,41 @@
 }
 
 .coupon {
-  padding: 15px 30px 45px;
+  padding: 15px 30px 45px 0;
   font-size: 16px;
+}
+
+@media only screen and (max-width: $tabletsBig) {
+  .box {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .image { width: 45%; }
+
+  .info {
+    padding-top: 30px;
+    width: 55%;
+  }
+}
+
+@media only screen and (max-width: $tabletsSmall) {
+  .box { display: block; }
+
+  .info,
+  .image { width: 100%; }
+}
+
+@media only screen and (max-width: $mobiles) {
+  .box { border: none; }
+
+  .info { padding: 0; }
+
+  .image { padding: 15px 0; }
+
+  .coupon {
+    color: #969696;
+
+    a { color: #969696 !important; }
+  }
 }

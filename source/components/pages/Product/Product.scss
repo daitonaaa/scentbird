@@ -1,25 +1,113 @@
 @import '~vars.scss';
 
 .product {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  overflow: hidden;
+  padding-bottom: 50px;
 
-  &-info {
-    width: 400px;
+  &-head {
+    margin-bottom: 50px;
+    width: 700px;
+    float: right;
 
-    &-bottom {
-      padding-top: 25px;
+    h1 {
+      margin-bottom: 5px;
+      font-size: 36px;
+    }
 
-      img {
-        margin-bottom: 20px;
-        width: 100%;
-        max-width: 100%;
-      }
+    span {
+      font-size: 16px;
+      color: $accent;
     }
   }
 
+  &-info {
+    float: left;
+    width: 400px;
+  }
+
   &-payment {
+    float: right;
     width: 700px;
+  }
+
+  &-bottom {
+    float: left;
+    padding-top: 25px;
+    width: 400px;
+
+    img {
+      margin-bottom: 20px;
+      width: 100%;
+      max-width: 369px;
+    }
+
+    span { display: block; }
+  }
+}
+
+@media only screen and (max-width: $tabletsBig) {
+  .product {
+    overflow: hidden;
+
+    &-head {
+      float: none;
+      width: 100%;
+    }
+
+    &-info {
+      float: none;
+      width: 100%;
+    }
+
+    &-payment {
+      padding-top: 40px;
+      float: none;
+      width: 100%;
+    }
+
+    &-bottom {
+      float: none;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      width: 100%;
+
+      img {
+        margin-right: 10px;
+        width: 50%;
+        max-width: 300px;
+      }
+
+      span {
+        display: block;
+        width: 50%;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: $tabletsSmall) {
+  .product {
+    overflow: initial;
+  }
+}
+
+@media only screen and (max-width: $mobiles) {
+  .product {
+
+    &-bottom {
+      float: none;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap-reverse;
+      width: 100%;
+
+      img { width: 100%; }
+
+      span {
+        margin-bottom: 20px;
+        width: 100%;
+      }
+    }
   }
 }

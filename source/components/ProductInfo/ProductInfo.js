@@ -120,17 +120,17 @@ export class ProductInfo extends Component {
             {this.renderDiscount()}
             {this.renderCredit()}
           </div>
-        </div>
-        <div className={`${styles.row} ${styles.rowTotal}`}>
-          <div className={styles.col}>
-            <span>total</span>
+          <div className={`${styles.row} ${styles.rowTotal}`}>
+            <div className={styles.col}>
+              <span>total</span>
+            </div>
+            <div className={styles.col}>
+              ${total}
+            </div>
           </div>
-          <div className={styles.col}>
-            ${total}
+          <div className={styles.coupon}>
+            Have a <Link to={url.product} className="pink-link">coupone code</Link>?
           </div>
-        </div>
-        <div className={styles.coupon}>
-          Have a <Link to={url.product} className="pink-link">coupone code</Link>?
         </div>
       </div>
     );

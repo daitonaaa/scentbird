@@ -27,18 +27,24 @@ export class Product extends Component {
         <Helmet>
           <title>SCENTBRID</title>
         </Helmet>
+        <div className={styles.productHead}>
+          <h1>MONTH-TO-MONTH SUBSCRIPTION</h1>
+          <span>Billed monthly. Renews automatically, cancel any time. Free shipping.</span>
+        </div>
         <div className={styles.productInfo}>
           <ProductInfo />
-          <div className={styles.productInfoBottom}>
-            <img src="http://test2.ortuna.ru/leftBg.jpg" alt="image" />
+        </div>
+        <div className={styles.productPayment}>
+          <PaymentForm />
+        </div>
+        <div className={styles.productBottom}>
+          <img src="http://test2.ortuna.ru/leftBg.jpg" alt="image" />
+          <span>
             You will receive an email confirmation when recipient accepts your gift. 
             Scentbird ships between the 15th and the 18th of every month. Recipient 
             will receive an email confirmation of shipment every month. Please allow 
             5-7 days for delivery.
-          </div>
-        </div>
-        <div className={styles.productPayment}>
-          <PaymentForm />
+          </span>
         </div>
       </div>
     );

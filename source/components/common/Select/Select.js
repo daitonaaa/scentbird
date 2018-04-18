@@ -1,12 +1,12 @@
-import pure from 'recompose/pure';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import React, { Component } from 'react';
+import outsideClick from 'react-click-outside';
 
 import Option from './Option';
 
 import styles from './Select.scss';
-var cx = classNames.bind(styles);
+const cx = classNames.bind(styles);
 
 
 class Select extends Component {
@@ -39,6 +39,10 @@ class Select extends Component {
 
   state = {
     open: false,
+  }
+
+  handleClickOutside() {
+    this.setState({ open: false });
   }
 
   handleValueType(value) {
@@ -143,4 +147,5 @@ class Select extends Component {
   }
 }
 
-export default pure(Select);
+
+export default outsideClick(Select);
