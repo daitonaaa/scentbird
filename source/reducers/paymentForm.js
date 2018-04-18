@@ -32,8 +32,8 @@ const initialState = Immutable.fromJS({
     // block - Credit card
     creditCard: '',
     securityCode: '',
-    month: '',
-    year: '',
+    month: 0,
+    year: 0,
   }
 });
 
@@ -49,6 +49,9 @@ function paymentForm(state = initialState, action) {
 
     case actionTypes.PAYMENT_FORM_SET_ERROR:
       return state.setIn(['errors', action.name], action.text);
+
+    case actionTypes.PAYMENT_FORM_SET_ERROR_OBJECT:
+      return state.set('errors', action.errors);
 
     case actionTypes.PAYMENT_FORM_DELETE_ERROR:
       return state.deleteIn(['errors', action.name]);

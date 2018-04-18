@@ -31,7 +31,7 @@
     color: black;
     border: solid 1px $border;
     outline: none;
-    transition: .1s;
+    transition: .2s;
 
     &:focus { outline: none; }
   }
@@ -43,14 +43,17 @@
   }
 
   &.error {
-    border: solid 2px red;
+    border: solid 1px #da1212;
 
-    .input-form {
-      border: none;
-    }
+    .input-form { border: solid 1px #da1212; }
 
     &:after {
+      position: absolute;
       content: attr(data-error);
+      bottom: -18px;
+      left: 0;
+      font-size: 12px;
+      color: #da1212;
     }
   }
 

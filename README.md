@@ -1,5 +1,4 @@
-## Посмотреть в живую: http://u24081.netangels.ru/
-### Для тестов - npm test
-### npm i
-### npm run dev // для windows
-### npm run dev-unix // для unix
+
+# Тестовое задание для SCENTBRID
+## Посмотреть в живую: http://test2.ortuna.ru/
+### Запустить тесты - npm i => npm test

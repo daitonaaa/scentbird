@@ -7,10 +7,12 @@ export const setProductInfo = payload => ({
   payload,
 });
 
+
 export const setLoadingStatus = status => ({
   type: actionTypes.PRODUCT_INFO_SET_LOADING_STATUS,
   status,
 });
+
 
 export const resetProductInfo = () => ({
   type: actionTypes.PRODUCT_INFO_RESET,

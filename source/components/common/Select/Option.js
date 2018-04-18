@@ -3,11 +3,18 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import React, { Component } from 'react';
 
+import styles from './Select.scss';
+var cx = classNames.bind(styles);
+
 
 class Option extends Component {
 
   static propTypes = {
-    item: PropTypes.object.isRequired,
+    label: PropTypes.string.isRequired,
+    activeValue: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
+    ]).isRequired,
     value: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.string,
@@ -16,25 +23,21 @@ class Option extends Component {
   };
 
   handleClick = () => {
-    const { item, onSelectOption } = this.props;
-    const value = item.id || item.value;
+    const { value, onSelectOption } = this.props;
 
     onSelectOption(value);
   }
 
   render() {
-    const { item, value } = this.props;
-    const optionValue = item.id || item.value;
+    const { label, value, activeValue } = this.props;
+    const active = activeValue === value;
 
     return(
       <div
-        className={classNames(
-          'select__options-item',
-          {'active': optionValue === value}
-        )}
         onClick={this.handleClick}
+        className={cx('select-option', { active })}
       >
-        {item.title}
+        {label}
       </div>
     );
   }

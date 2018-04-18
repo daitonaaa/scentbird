@@ -37,6 +37,22 @@ describe('> > > REDUCER - paymentForm.js', () => {
     }});
   });
 
+  it(`#case: ${actionTypes.PAYMENT_FORM_SET_ERROR_OBJECT}`, () => {
+    let state = { errors: {} };
+    state = reducer(state, {
+      type: actionTypes.PAYMENT_FORM_SET_ERROR_OBJECT,
+      errors: {
+        email: 'This field is required',
+        password: 'This field is required',
+      }
+    });
+
+    expect(state).toEqual({ errors: {
+      email: 'This field is required',
+      password: 'This field is required',
+    }});
+  });
+
   it(`#case: ${actionTypes.PAYMENT_FORM_DELETE_ERROR}`, () => {
     let state =  { errors: {
       email: 'Enter the data',

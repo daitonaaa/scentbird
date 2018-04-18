@@ -5,6 +5,7 @@ import {
   deletePaymentFormError,
   changePaymentFormData,
   resetPaymentFormBilling,
+  setPaymentFormErrorObject,
   setPaymentFormBillingStatus,
 } from 'actions/paymentForm';
 import * as actionTypes from 'constants/actionTypes';
@@ -30,6 +31,20 @@ describe('> > > ACTIONS - paymentForm.js', () => {
         type: actionTypes.PAYMENT_FORM_SET_ERROR,
         name: 'email',
         text: 'Enter the data',
+      });
+  });
+
+  it('#action: setPaymentFormErrorObject', () => {
+    expect(setPaymentFormErrorObject({
+      email: 'This field is required',
+      password: 'This field is required',
+    }))
+      .toEqual({
+        type: actionTypes.PAYMENT_FORM_SET_ERROR_OBJECT,
+        errors: {
+          email: 'This field is required',
+          password: 'This field is required',
+        }
       });
   });
 

@@ -1,11 +1,24 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import React, { Component, Fragment } from 'react';
 
-import { resetPaymentForm, setPaymentFormBillingStatus } from 'actions/paymentForm';
+import {
+  resetPaymentForm,
+  submitPaymentForm,
+  setPaymentFormError,
+  deletePaymentFormError,
+  changePaymentFormBillingStatus,
+} from 'actions/paymentForm';
 
-import { CreateAccount, ShippingAddress } from './stateless';
+import {
+  CreditCard,
+  CreateAccount,
+  BillingAddress,
+  ShippingAddress,
+} from './stateless';
 
+import url from 'urls';
 import styles from './PaymentForm.scss';
 
 
@@ -15,21 +28,45 @@ export class PaymentForm extends Component {
     billingAddress: PropTypes.bool.isRequired,
 
     resetPaymentForm: PropTypes.func.isRequired,
-    setPaymentFormBillingStatus: PropTypes.func.isRequired,
+    submitPaymentForm: PropTypes.func.isRequired,
+    setPaymentFormError: PropTypes.func.isRequired,
+    deletePaymentFormError: PropTypes.func.isRequired,
+    changePaymentFormBillingStatus: PropTypes.func.isRequired,
   };
 
-  componentDidMount() {
+  componentWillUnmount() {
     this.props.resetPaymentForm();
   }
 
   handleChangeBillingAddressStatus = event => {
-    const { setPaymentFormBillingStatus } = this.props;
+    const { changePaymentFormBillingStatus } = this.props;
 
-    setPaymentFormBillingStatus(event.target.checked);
+    changePaymentFormBillingStatus(event.target.checked);
+  }
+
+  handleRequiredField = (value, name) => {
+    const { setPaymentFormError, deletePaymentFormError } = this.props;
+    const processedValue = typeof value === 'number' ? value : value.trim();
+
+    processedValue
+      ? deletePaymentFormError(name)
+      : setPaymentFormError(name, 'This field is required');
+  }
+
+  renderBillingAddress() {
+    const { billingAddress } = this.props;
+
+    if (!billingAddress) return (
+      <BillingAddress onValidateRequiredField={this.handleRequiredField} />
+    );
   }
 
   render() {
-    const { billingAddress } = this.props;
+    const { billingAddress, submitPaymentForm } = this.props;
+
+    const prop = {
+      onValidateRequiredField: this.handleRequiredField
+    };
 
     return (
       <Fragment>
@@ -37,8 +74,8 @@ export class PaymentForm extends Component {
           <h1>MONTH-TO-MONTH SUBSCRIPTION</h1>
           <span>Billed monthly. Renews automatically, cancel any time. Free shipping.</span>
         </div>
-        <CreateAccount />
-        <ShippingAddress />
+        <CreateAccount {...prop} />
+        <ShippingAddress {...prop} />
         <div className={styles.rowBlock}>
           <div className="checkbox-white checkbox-margin-right">
             <input
@@ -48,7 +85,22 @@ export class PaymentForm extends Component {
               onChange={this.handleChangeBillingAddressStatus}
             />
             <label htmlFor="billingAddress" />
-            <label htmlFor="billingAddress">Use this address as my billing address</label>
+            <label htmlFor="billingAddress">
+              Use this address as my billing address
+            </label>
+          </div>
+        </div>
+        {this.renderBillingAddress()}
+        <CreditCard {...prop} />
+        <div className={styles.bottom}>
+          <Link to={url.product} className="button-white">
+            Back
+          </Link>
+          <div
+            onClick={submitPaymentForm}
+            className="button-pink button-pink-arrow"
+          >
+            buy now
           </div>
         </div>
       </Fragment>
@@ -63,10 +115,13 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   resetPaymentForm,
-  setPaymentFormBillingStatus,
+  submitPaymentForm,
+  setPaymentFormError,
+  deletePaymentFormError,
+  changePaymentFormBillingStatus,
 };
 
 export default connect(
-  mapStateToProps, 
+  mapStateToProps,
   mapDispatchToProps
 )(PaymentForm);

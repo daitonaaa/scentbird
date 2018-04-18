@@ -42,13 +42,16 @@
   &:last-child { padding-left: 10px; }
 }
 
-.col33 {
+.col33, .col25 {
   padding: 0 10px;
-  width: calc(100% / 3);
 
   &:first-child { padding: 0 10px 0 0; }
   &:last-child { padding: 0 0 0 10px; }
 }
+
+.col25 { width: 25%; }
+
+.col33 { width: calc(100% / 3); }
 
 .col66 {
   padding-right: 10px;

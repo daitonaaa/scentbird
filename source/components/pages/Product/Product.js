@@ -25,7 +25,7 @@ export class Product extends Component {
     return (
       <div className={styles.product}>
         <Helmet>
-          <title>MONTH-TO-MONTH SUBSCRIPTION</title>
+          <title>SCENTBRID</title>
         </Helmet>
         <div className={styles.productInfo}>
           <ProductInfo />
@@ -47,6 +47,6 @@ export class Product extends Component {
 
 
 export default connect(
-  () => ({}), 
+  () => ({}),
   { getProductInfo }
 )(Product);

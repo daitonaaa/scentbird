@@ -2,10 +2,10 @@ import React from 'react';
 import CSSModules from 'react-css-modules';
 import { Switch, Route } from 'react-router-dom';
 
+import { Product } from 'components/pages';
+
 import url from 'urls';
 import styles from './Layout.scss';
-
-import { Product } from 'components/pages';
 
 
 const Layout = () => (

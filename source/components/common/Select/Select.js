@@ -1,195 +1,146 @@
-import React from 'react';
 import pure from 'recompose/pure';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import outsideClick from 'react-click-outside';
+import classNames from 'classnames/bind';
+import React, { Component } from 'react';
 
 import Option from './Option';
 
-import './Select.scss';
+import styles from './Select.scss';
+var cx = classNames.bind(styles);
 
 
-class Select extends React.Component {
+class Select extends Component {
 
   static propTypes = {
-    error: PropTypes.bool,
-    white: PropTypes.bool,
-    width: PropTypes.number,
-    disabled: PropTypes.bool,
-    className: PropTypes.string,
-    errorText: PropTypes.string,
-    noCancelBtn: PropTypes.bool,
-    value: PropTypes.any.isRequired,
-    title: PropTypes.string.isRequired,
     options: PropTypes.array.isRequired,
+    white: PropTypes.bool,
+    name: PropTypes.string,
+    title: PropTypes.string,
+    error: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.bool,
+    ]),
+    value: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
+    ]),
+    defaultValue: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
+    ]),
 
+    onValidate: PropTypes.func,
     onChange: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     title: '',
-  }
+  };
 
   state = {
-    showOptions: false,
-    open: !!this.props.value || this.props.value === 0,
+    open: false,
   }
 
-  componentWillReceiveProps(nextProps) {
-    const value = this.props.value;
+  handleValueType(value) {
+    const processedValue = + value;
 
-    if (
-      !value &&
-      (nextProps.value || nextProps.value === 0)
-    ) {
-      this.setState({open: true});
+    return processedValue ? value : processedValue;
+  }
+
+  handleSelected = value => {
+    const {
+      name,
+      onChange,
+      onValidate,
+    } = this.props;
+
+    if (onChange instanceof Function) {
+      onChange(this.handleValueType(value), name);
     }
 
-    else if (!nextProps.value && nextProps.value !== 0) {
-      this.setState({open: false});
+    if (onValidate instanceof Function) {
+      onValidate(this.handleValueType(value), name);
     }
+
+    this.setState({ open: false });
   }
 
   handleOpenSelect = () => {
-    const { disabled } = this.props;
-    const { showOptions } = this.state;
+    this.setState({ open: true });
+  };
 
-    if (disabled || showOptions) return;
+  handleCloseSelect = () => {
+    this.setState({ open: false });
+  };
 
-    this.setState({
-      open: true,
-      showOptions: true,
-    });
-  }
+  renderTitle() {
+    const { value, options, title } = this.props;
 
-  handleSelect = value => {
-    const { onChange } = this.props;
+    if (value) {
+      const active = options.find(option => option.value === value);
 
-    this.setState({
-      open: true,
-      showOptions: false,
-    });
+      if (active) return active.label;
+    }
 
-    onChange(value);
-  }
-
-  handleSelectNone = () => {
-    const { onChange } = this.props;
-
-    this.setState({
-      open: false,
-      showOptions: false,
-    });
-
-    onChange('');
-  }
-
-  handleClickOutside() {
-    const { value } = this.props;
-    const { showOptions } = this.state;
-
-    if (showOptions) this.setState({
-      open: !!value,
-      showOptions: false,
-    });
-  }
-
-  renderSelectedTitle() {
-    const { options, value } = this.props;
-
-    const selectedOption = options.find(item => {
-      const selectedValue = item.id || item.value;
-
-      return selectedValue === value;
-    });
-
-    if (selectedOption) return selectedOption.title;
-  }
-
-  renderCancelBtn() {
-    const { noCancelBtn } = this.props;
-
-    if (!noCancelBtn) return (
-      <div
-        onClick={this.handleSelectNone}
-        className="select__options-item"
-      >
-        Отмена
-      </div>
-    );
+    return title;
   }
 
   renderOptions() {
-    const { showOptions } = this.state;
+    const { open } = this.state;
     const { options, value } = this.props;
 
-    if (showOptions && options instanceof Array && options.length) {
-      return (
-        <div className="select__options">
-          <div className="select__options-list">
-            {this.renderCancelBtn()}
-            {options.map(item =>
-              <Option
-                key={item.id || item.value}
-                item={item}
-                value={value}
-                onSelectOption={this.handleSelect}
-              />
-            )}
-          </div>
-        </div>
+    if (open && options instanceof Array) {
+      return options.map(option =>
+        <Option
+          {...option}
+          key={option.value}
+          activeValue={value}
+          onSelectOption={this.handleSelected}
+        />
       );
     }
   }
 
   render() {
     const {
-      title,
-      width,
-      error,
       white,
-      disabled,
-      className,
-      errorText,
+      error,
+      value,
+      defaultValue,
     } = this.props;
-    const { open, showOptions } = this.state;
+    const { open } = this.state;
+    const active = !!value;
 
     return (
       <div
-        className={classNames(
-          'select',
-          {
-            open,
-            error,
-            white,
-            disabled,
-            'show-options': showOptions,
-            [className]: !!className,
-          }
-        )}
-        style={width ? {width: `${width}px`} : null}
+        data-error={error !== true && error}
+        className={cx('select', {
+          open,
+          white,
+          error: !!error
+        })}
       >
         <div
-          className="select__box"
           onClick={this.handleOpenSelect}
+          className={cx('select-title', { active })}
         >
-          <div className="select__selected-title">
-            {this.renderSelectedTitle()}
-          </div>
-          <div
-            className="select__title"
-            onClick={this.handleOpenSelect}
-          >
-            {title}
-          </div>
-          {this.renderOptions()}
+          {this.renderTitle()}
         </div>
-        <div className="select__error">
-          {errorText}
+        <div
+          value={value}
+          ref={this.select}
+          defaultValue={defaultValue}
+          className={styles.selectForm}
+
+          onChange={this.handleChange}
+          onFocus={this.handleOpenSelect}
+          onBlur={this.handleCloseSelect}
+        >
+          {this.renderOptions()}
         </div>
       </div>
     );
   }
 }
 
-export default outsideClick(pure(Select));
+export default pure(Select);

@@ -11,6 +11,7 @@ import styles from '../PaymentForm.scss';
 
 const ShippingAddress =  ({
   phone,
+  errors,
   lastName,
   firstName,
   shippingApt,
@@ -19,7 +20,8 @@ const ShippingAddress =  ({
   shippingRegion,
   shippingCountry,
   shippingPostCode,
-  changePaymentFormData
+  changePaymentFormData,
+  onValidateRequiredField,
 }) => (
   <Fragment>
     <div className={styles.title}>
@@ -31,7 +33,9 @@ const ShippingAddress =  ({
           name="firstName"
           value={firstName}
           title="First name"
+          error={errors.firstName}
           onChange={changePaymentFormData}
+          onValidate={onValidateRequiredField}
         />
       </div>
       <div className={styles.col50}>
@@ -39,7 +43,9 @@ const ShippingAddress =  ({
           name="lastName"
           value={lastName}
           title="Last name"
+          error={errors.lastName}
           onChange={changePaymentFormData}
+          onValidate={onValidateRequiredField}
         />
       </div>
     </div>
@@ -49,7 +55,9 @@ const ShippingAddress =  ({
           name="shippingStreet"
           value={shippingStreet}
           title="Street address"
+          error={errors.shippingStreet}
           onChange={changePaymentFormData}
+          onValidate={onValidateRequiredField}
         />
       </div>
       <div className={styles.col33}>
@@ -67,7 +75,9 @@ const ShippingAddress =  ({
           name="shippingPostCode"
           value={shippingPostCode}
           title="Post code"
+          error={errors.shippingPostCode}
           onChange={changePaymentFormData}
+          onValidate={onValidateRequiredField}
         />
       </div>
       <div className={styles.col33}>
@@ -75,7 +85,9 @@ const ShippingAddress =  ({
           name="shippingCity"
           value={shippingCity}
           title="City"
+          error={errors.shippingCity}
           onChange={changePaymentFormData}
+          onValidate={onValidateRequiredField}
         />
       </div>
       <div className={styles.col33}>
@@ -83,7 +95,9 @@ const ShippingAddress =  ({
           name="shippingRegion"
           value={shippingRegion}
           title="Region"
+          error={errors.shippingRegion}
           onChange={changePaymentFormData}
+          onValidate={onValidateRequiredField}
         />
       </div>
     </div>
@@ -92,7 +106,9 @@ const ShippingAddress =  ({
         name="shippingCountry"
         value={shippingCountry}
         title="Country"
+        error={errors.shippingCountry}
         onChange={changePaymentFormData}
+        onValidate={onValidateRequiredField}
       />
     </div>
     <div className={styles.row}>
@@ -114,6 +130,7 @@ const ShippingAddress =  ({
 
 ShippingAddress.propTypes = {
   phone: PropTypes.string.isRequired,
+  errors: PropTypes.object.isRequired,
   lastName: PropTypes.string.isRequired,
   firstName: PropTypes.string.isRequired,
   shippingApt: PropTypes.string.isRequired,
@@ -124,9 +141,11 @@ ShippingAddress.propTypes = {
   shippingPostCode: PropTypes.string.isRequired,
 
   changePaymentFormData: PropTypes.func.isRequired,
+  onValidateRequiredField: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
+  errors: state.paymentForm.errors,
   phone: state.paymentForm.data.phone,
   lastName: state.paymentForm.data.lastName,
   firstName: state.paymentForm.data.firstName,
