@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { changePaymentFormData } from 'actions/paymentForm';
 
-import { Input } from 'components/common';
+import { Input, Select } from 'components/common';
 
 import styles from '../PaymentForm.scss';
 
@@ -81,7 +81,11 @@ const ShippingAddress =  ({
         />
       </div>
       <div className={styles.col33}>
-        <Input
+        <Select
+          options={[
+            { value: 1, label: 'Ekb' },
+            { value: 2, label: 'Moscow' },
+          ]}
           name="shippingCity"
           value={shippingCity}
           title="City"
@@ -91,7 +95,11 @@ const ShippingAddress =  ({
         />
       </div>
       <div className={styles.col33}>
-        <Input
+        <Select
+          options={[
+            { value: 1, label: 'NEW YORK' },
+            { value: 2, label: 'Moscow' },
+          ]}
           name="shippingRegion"
           value={shippingRegion}
           title="Region"

@@ -8,6 +8,16 @@
   cursor: pointer;
   transition: .2s;
 
+  &:before {
+    position: absolute;
+    z-index: 1;
+    content: '';
+    top: calc(50% - 3px);
+    right: 15px;
+    border: solid 5px transparent;
+    border-top-color: $accent;
+  }
+
   &-title {
     position: absolute;
     content: attr(data-title);
@@ -24,7 +34,10 @@
     cursor: pointer;
     transition: .2s;
 
-    &.active { color: black; }
+    &.active {
+      font-family: $mainFontBold;
+      color: black;
+    }
   }
 
   &-form {
@@ -33,7 +46,7 @@
     display: none;
     top: 100%;
     width: 100%;
-    background: white;
+    background: #fafafa;
     border: solid 1px $border;
     border-top: none;
   }
@@ -54,6 +67,8 @@
 
   &.white &-title { background: white; }
 
+  &.white &-form { background: white; }
+
   &.error {
     border: solid 1px #da1212;
 
@@ -69,9 +84,7 @@
     }
   }
 
-  &.open &-form {
-    display: block;
-  }
+  &.open &-form { display: block; }
 
   &.success {
 

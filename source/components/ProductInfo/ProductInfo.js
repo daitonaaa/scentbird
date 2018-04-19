@@ -87,7 +87,7 @@ export class ProductInfo extends Component {
     } = this.props;
 
     return (
-      <div className={cx('box', { loading })}>
+      <div className={cx('product-info', { loading })}>
         <div className={styles.image}>
           <img src={this.renderImage()} alt="product image" />
         </div>

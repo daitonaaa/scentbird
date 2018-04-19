@@ -6,6 +6,97 @@
   font-size: 24px;
 }
 
+.loading {
+  position: relative;
+
+  &:before {
+    position: absolute;
+    z-index: 10;
+    content: '';
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    text-align: center;
+  }
+
+  &:after {
+    position: absolute;
+    z-index: 20;
+    content: 'Awaiting response from server';
+    top: calc(50% - 15px);
+    left: 0;
+    width: 100%;
+    font-size: 18px;
+    color: $accent;
+    text-align: center;
+  }
+}
+
+.gender {
+  display: none;
+
+  &-title {
+    margin-bottom: 25px;
+    font-family: $mainFontBold;
+    font-size: 24px;
+    text-align: center;
+  }
+
+  &-box {
+    display: flex;
+    margin: 0 auto 35px;
+    width: 350px;
+    justify-content: center;
+  }
+
+  &-select {
+
+    &:first-child { margin-right: 30px; }
+
+    &:last-child { margin-left: 30px; }
+
+    input { display: none; }
+
+    label {
+      position: relative;
+      display: block;
+      width: 100px;
+      cursor: pointer;
+    }
+
+    &-title {
+      display: block;
+      font-family: $mainFontBold;
+      font-size: 18px;
+      text-align: center;
+    }
+
+    &-image { height: 80px; }
+
+    &-icon {
+      display: block;
+      margin: 0 auto;
+    }
+
+    &-check {
+      position: absolute;
+      display: block;
+      bottom: 25px;
+      right: 10px;
+      margin: 0 auto;
+      width: 24px;
+      transform: scale(0);
+      transition: .2s;
+    }
+
+    input:checked + label &-check {
+      transform: scale(1);
+    }
+  }
+}
+
 .row {
   display: flex;
   justify-content: space-between;
@@ -28,16 +119,13 @@
   &:last-child { padding-left: 10px; }
 }
 
-.col33, .col25 {
+.col33 {
   padding: 0 10px;
+  width: calc(100% / 3);
 
   &:first-child { padding: 0 10px 0 0; }
   &:last-child { padding: 0 0 0 10px; }
 }
-
-.col25 { width: 25%; }
-
-.col33 { width: calc(100% / 3); }
 
 .col66 {
   padding-right: 10px;
@@ -175,9 +263,7 @@
     cursor: pointer;
     transition: .2s;
 
-    &:hover {
-      background: lighten($accent, 10%);
-    }
+    &:hover { background: lighten($accent, 10%); }
 
     &:before {
       position: absolute;
@@ -191,7 +277,17 @@
   }
 }
 
+@media only screen and (max-width: $tabletsBig) {
+  .gender {
+    display: block;
+  }
+}
+
 @media only screen and (max-width: $tabletsSmall) {
+  .gender {
+    display: block;
+  }
+
   .title {
     margin-top: 40px;
     font-size: 20px;
@@ -203,7 +299,7 @@
     span { display: none; }
   }
 
-  .col50, .col25, .col33, .col66 {
+  .col50, .col33, .col66 {
     margin-bottom: 20px;
     padding: 0;
     width: 100%;
@@ -253,9 +349,7 @@
 
 @media only screen and (max-width: $mobiles) {
   .card {
-    &-top {
-      display: block;
-    }
+    &-top { display: block; }
 
     &-icons {
       margin-top: 20px;
@@ -264,6 +358,18 @@
         right: auto;
         left: 0;
       }
+    }
+  }
+
+  .bottom {
+    a { display: none; }
+
+    &-btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+
+      &:before { display: none; }
     }
   }
 }

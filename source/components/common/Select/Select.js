@@ -24,10 +24,6 @@ class Select extends Component {
       PropTypes.number,
       PropTypes.string,
     ]),
-    defaultValue: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string,
-    ]),
 
     onValidate: PropTypes.func,
     onChange: PropTypes.func.isRequired,
@@ -73,10 +69,6 @@ class Select extends Component {
     this.setState({ open: true });
   };
 
-  handleCloseSelect = () => {
-    this.setState({ open: false });
-  };
-
   renderTitle() {
     const { value, options, title } = this.props;
 
@@ -110,7 +102,6 @@ class Select extends Component {
       white,
       error,
       value,
-      defaultValue,
     } = this.props;
     const { open } = this.state;
     const active = !!value;
@@ -130,16 +121,7 @@ class Select extends Component {
         >
           {this.renderTitle()}
         </div>
-        <div
-          value={value}
-          ref={this.select}
-          defaultValue={defaultValue}
-          className={styles.selectForm}
-
-          onChange={this.handleChange}
-          onFocus={this.handleOpenSelect}
-          onBlur={this.handleCloseSelect}
-        >
+        <div className={styles.selectForm}>
           {this.renderOptions()}
         </div>
       </div>

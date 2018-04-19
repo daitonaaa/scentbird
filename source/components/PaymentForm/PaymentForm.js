@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 
 import {
   resetPaymentForm,
@@ -13,6 +13,7 @@ import {
 
 import {
   CreditCard,
+  GenderSelect,
   CreateAccount,
   BillingAddress,
   ShippingAddress,
@@ -25,6 +26,7 @@ import styles from './PaymentForm.scss';
 export class PaymentForm extends Component {
 
   static propTypes = {
+    loading: PropTypes.bool.isRequired,
     billingAddress: PropTypes.bool.isRequired,
 
     resetPaymentForm: PropTypes.func.isRequired,
@@ -62,14 +64,21 @@ export class PaymentForm extends Component {
   }
 
   render() {
-    const { billingAddress, submitPaymentForm } = this.props;
+    const {
+      loading,
+      billingAddress,
+      submitPaymentForm,
+    } = this.props;
 
     const prop = {
       onValidateRequiredField: this.handleRequiredField
     };
 
+    const style = loading ? styles.loading : '';
+
     return (
-      <Fragment>
+      <div className={style}>
+        <GenderSelect />
         <CreateAccount {...prop} />
         <ShippingAddress {...prop} />
         <div className={styles.rowBlock}>
@@ -99,13 +108,14 @@ export class PaymentForm extends Component {
             buy now
           </div>
         </div>
-      </Fragment>
+      </div>
     );
   }
 }
 
 
 const mapStateToProps = state => ({
+  loading: state.paymentForm.loading,
   billingAddress: state.paymentForm.billingAddress,
 });
 

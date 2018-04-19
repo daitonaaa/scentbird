@@ -1,7 +1,7 @@
 export default {
   getProductInfo: () => new Promise(
     (resolve, reject) => setTimeout(
-      () => resolve(serverData), 500
+      () => resolve(serverData), 2000
     )
   )
 };

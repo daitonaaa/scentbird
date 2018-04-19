@@ -38,9 +38,7 @@
 
   &.white &-form { background: white; }
 
-  &:hover &-form {
-    border-color: darken($border, 10%);
-  }
+  &:hover &-form { border-color: darken($border, 10%); }
 
   &.error {
     border: solid 1px #da1212;

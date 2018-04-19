@@ -76,22 +76,26 @@ export const changePaymentFormBillingStatus = status => (dispatch, getState) => 
 
 
 export const submitPaymentForm = () => (dispatch, getState) => {
-  dispatch(setLoadingStatus(true));
-
   const { errors, data, billingAddress } = getState().paymentForm;
   const haveErrors = Object.values(errors).length;
 
-  if (haveErrors || !valid(billingAddress, data, dispatch)) {
-
+  if (
+    haveErrors
+    || !valid(billingAddress, data, dispatch)
+  ) {
     return;
   }
-  else return api.postOrder().then(
-    () => {
-      dispatch(setLoadingStatus(false));
-      alert('Form submitted! Thank you for your purchase!');
-    },
-    error => console.log(error)
-  );
+  else {
+    dispatch(setLoadingStatus(true));
+
+    return api.postOrder().then(
+      () => {
+        dispatch(setLoadingStatus(false));
+        alert('Form submitted! Thank you for your purchase!');
+      },
+      error => console.log(error)
+    );
+  }
 };
 
 
