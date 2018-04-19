@@ -25,11 +25,13 @@ export class Product extends Component {
     return (
       <div className={styles.product}>
         <Helmet>
-          <title>SCENTBRID</title>
+          <title>SCENTBIRD</title>
         </Helmet>
         <div className={styles.productHead}>
-          <h1>MONTH-TO-MONTH SUBSCRIPTION</h1>
-          <span>Billed monthly. Renews automatically, cancel any time. Free shipping.</span>
+          <h1>MONTH<span>-TO-MONTH</span> SUBSCRIPTION</h1>
+          <div className={styles.productHeadHint}>
+            Billed monthly. Renews automatically, cancel any time. Free shipping.
+          </div>
         </div>
         <div className={styles.productInfo}>
           <ProductInfo />

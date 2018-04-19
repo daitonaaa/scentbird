@@ -47,7 +47,6 @@
   &-box {
     display: flex;
     margin: 0 auto 35px;
-    width: 350px;
     justify-content: center;
   }
 
@@ -62,14 +61,14 @@
     label {
       position: relative;
       display: block;
-      width: 100px;
+      width: 135px;
       cursor: pointer;
     }
 
     &-title {
       display: block;
       font-family: $mainFontBold;
-      font-size: 18px;
+      font-size: 26px;
       text-align: center;
     }
 
@@ -83,8 +82,8 @@
     &-check {
       position: absolute;
       display: block;
-      bottom: 25px;
-      right: 10px;
+      bottom: 30px;
+      right: 25px;
       margin: 0 auto;
       width: 24px;
       transform: scale(0);
@@ -184,9 +183,20 @@
   }
 
   &-number {
+    position: relative;
     padding-right: 10px;
     width: 66.666%;
     float: left;
+
+    &-icon {
+      position: absolute;
+      content: '';
+      top: calc(50% - 8.5px);
+      right: 15px;
+      width: 14px;
+      height: 17px;
+      background: url('http://test2.ortuna.ru/creditNumber.jpg') no-repeat;
+    }
   }
 
   &-dates {
@@ -286,6 +296,8 @@
 @media only screen and (max-width: $tabletsSmall) {
   .gender {
     display: block;
+
+    &-title { font-size: 20px; }
   }
 
   .title {
@@ -348,6 +360,10 @@
 }
 
 @media only screen and (max-width: $mobiles) {
+
+  .gender-title,
+  .title { text-align: center; }
+
   .card {
     &-top { display: block; }
 

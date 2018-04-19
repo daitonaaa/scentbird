@@ -1,5 +1,5 @@
-import * as actionTypes from 'constants/actionTypes';
 import api from 'api/productInfo';
+import * as actionTypes from 'constants/actionTypes';
 
 
 export const setProductInfo = payload => ({

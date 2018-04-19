@@ -74,15 +74,9 @@ class Input extends Component {
   }
 
   handleOpenInput = () => {
-    const {
-      mask,
-      error,
-      value,
-    } = this.props;
+    const { mask } = this.props;
 
-    value && !error
-      ? this.setState({ open: false, success: true })
-      : this.setState({ open: true, success: false });
+    this.setState({ open: true, success: false });
 
     mask
       ? this.input.current.refs.input.focus()

@@ -69,6 +69,8 @@
 
   &.white &-form { background: white; }
 
+  &.white:before { border-top-color: #999; }
+
   &.error {
     border: solid 1px #da1212;
 

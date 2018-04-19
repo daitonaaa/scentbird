@@ -1,5 +1,5 @@
-import * as actionTypes from 'constants/actionTypes';
 import api from 'api/paymentForm';
+import * as actionTypes from 'constants/actionTypes';
 
 
 export const setLoadingStatus = status => ({

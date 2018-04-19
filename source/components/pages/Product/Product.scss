@@ -14,7 +14,7 @@
       font-size: 36px;
     }
 
-    span {
+    &-hint {
       font-size: 16px;
       color: $accent;
     }
@@ -94,6 +94,15 @@
 
 @media only screen and (max-width: $mobiles) {
   .product {
+    &-head {
+      text-align: center;
+
+      h1 {
+        font-size: 26px;
+
+        span { display: none; }
+      }
+    }
 
     &-bottom {
       float: none;
